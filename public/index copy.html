@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video to Canvas</title>
+    <style>
+      canvas {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <video id="video" width="640" height="480" controls>
+      <source src="./assets/videos/Hksl/Hksl_事情.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <canvas id="canvas" width="640" height="480"></canvas>
+
+    <script>
+      const video = document.getElementById("video");
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      video.addEventListener("play", function () {
+        const drawFrame = () => {
+          if (video.paused || video.ended) {
+            return;
+          }
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          requestAnimationFrame(drawFrame);
+        };
+        drawFrame();
+      });
+    </script>
+  </body>
+</html>
