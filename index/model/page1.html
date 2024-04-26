@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>手语村</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/goto.css">
+    <style>
+
+    </style>
+</head>
+<body>
+
+<!-- 状态消息显示区域 -->
+<div id="statusMessage" class="status-message"></div>
+
+<!-- 视频和画布区域 -->
+<div class="jumbotron">
+    <video class="input_video"></video>
+    <canvas class="output_canvas" width="1280" height="720"></canvas>
+</div>
+
+<!-- 视频和图片遮罩 -->
+<div class="video-mask"></div>
+<div class="img"></div>
+
+<!-- 交互按钮区域 -->
+<button id="buttonActive" class="action-button" style="display: none;">开始</button>
+<button id="buttonInactive" class="action-button-inactive" disabled >开始</button>
+
+<!-- MediaPipe 和摄像头脚本引入 -->
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/holistic/holistic.js" crossorigin="anonymous"></script>
+
+<!-- MediaPipe 模型和摄像头处理逻辑 -->
+<script type="module">
+    const videoElement = document.getElementsByClassName('input_video')[0];
+    const canvasElement = document.getElementsByClassName('output_canvas')[0];
+    const canvasCtx = canvasElement.getContext('2d');
+
+    // 处理结果，动态显示状态消息和控制按钮
+    function onResults(results) {
+        // 清空和重绘画布
+        canvasCtx.save();
+        canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+        canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
+
+        // 检测脸部是否在框内，并控制按钮显示
+        const boxWidth = 400;
+        const boxHeight = 400;
+        const centerX = (canvasElement.width - boxWidth) / 2;
+        const centerY = (canvasElement.height - boxHeight) / 2;
+        canvasCtx.strokeStyle = 'rgba(255, 255, 255, 0)';  // 隐藏框
+        canvasCtx.strokeRect(centerX, centerY, boxWidth, boxHeight);
+
+        const faceInBox = results.faceLandmarks && results.faceLandmarks.every(landmark => {
+            return (
+                landmark.x * canvasElement.width >= centerX &&
+                landmark.x * canvasElement.width <= centerX + boxWidth &&
+                landmark.y * canvasElement.height >= centerY &&
+                landmark.y * canvasElement.height <= centerY + boxHeight
+            );
+        });
+
+        const messageDiv = document.getElementById('statusMessage');
+        const buttonActive = document.getElementById('buttonActive');
+        const buttonInactive = document.getElementById('buttonInactive');
+        const correctMessage = '做得好！我们检测到你的手、身体和面孔';
+
+        if (faceInBox) {
+            messageDiv.textContent = correctMessage;
+            buttonActive.style.display = 'block';
+            buttonInactive.style.display = 'none';
+        } else {
+            messageDiv.textContent = '按边框调整好你的姿势';
+            buttonActive.style.display = 'none';
+            buttonInactive.style.display = 'block';
+        }
+
+        canvasCtx.restore();
+    }
+
+    // 配置Holistic模型
+    const holistic = new Holistic({
+        locateFile: (file) => {
+            return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic/${file}`;
+        }
+    });
+    holistic.setOptions({
+        modelComplexity: 1,
+        smoothLandmarks: true,
+        minDetectionConfidence: 0.5,
+        minTrackingConfidence: 0.5
+    });
+    holistic.onResults(onResults);
+
+    // 启动摄像头
+    const camera = new Camera(videoElement, {
+        onFrame: async () => {
+            await holistic.send({ image: videoElement });
+        },
+        width: 1280,
+        height: 720
+    });
+    camera.start();
+</script>
+
+<!-- 按钮点击跳转逻辑 -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var button = document.getElementById('buttonActive');
+
+        // 按钮点击事件处理器
+        button.addEventListener('click', function() {
+            // 发送消息到父页面，请求切换到第二个 iframe
+            window.parent.postMessage({ type: 'switchIframe', index: 1 }, '*'); // 请将 '*' 替换为您的父页面域名以提高安全性
+        });
+    });
+</script>
+</body>
+</html>

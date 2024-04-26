@@ -21,15 +21,14 @@
 
 /* 视频显示区域的样式 */
 .jumbotron {
-    background-color: #f8f9fa;  /* 浅灰色背景 */
-    color: #212529;  /* 文本颜色 */
-    overflow: hidden;  /* 隐藏溢出内容 */
+    background-color: white;
+    overflow: hidden;
     width: 64vh;
     height: 36vh;
     position: absolute;
     top: 50vh;
     left: 70vw;
-    transform: translate(-50%, -50%);  /* 居中定位 */
+    transform: translate(-50%, -50%);
 }
 
 /* 视频元素透明度设置，使其不可见 */
@@ -86,7 +85,7 @@ video, canvas {
 }
 
 /* 可点击和不可点击按钮的共通样式 */
-.action-button, .action-button-inactive {
+.action-button, .action-button-inactive, .button-start {
     width: 24vh;
     height: 8vh;
     border-radius: 4vh;
@@ -110,4 +109,34 @@ video, canvas {
 .action-button-inactive {
     background-color: grey;  /* 灰色背景表示不可点击 */
     cursor: not-allowed;  /* 鼠标样式为禁止图标 */
+}
+
+
+.video-mask-1 {
+    position: absolute;
+    width: 36vh;
+    height: 36vh;
+    top: 50vh;
+    left: 70vw;
+    transform: translate(-50%, -50%);
+    border: 8px solid #fff;  /* 黑色边框 */
+    border-radius: 24px;
+    pointer-events: none;
+}
+.img-1 {
+    position: absolute;
+    width: 6vh;
+    height: 6vh;
+    top: 38vh;
+    left: 54vw;
+    transform: translate(-50%, -50%);
+}
+.img-text {
+    color: black;
+    font-size: 24px;
+    font-family: Arial, sans-serif;
+    position: absolute;
+    top: 38vh;
+    left: 86vw;
+    transform: translate(-50%, -50%);
 }

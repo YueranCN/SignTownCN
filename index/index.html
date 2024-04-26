@@ -11,12 +11,11 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(255, 255, 255); /* 半透明白色背景 */
-            z-index: 1000; /* 确保加载指示器在最前面 */
-
+            background-color: rgba(255, 255, 255);
+            z-index: 1000;
             display: flex;
-            justify-content: center; /* 水平居中 */
-            align-items: center; /* 垂直居中 */
+            justify-content: center;
+            align-items: center;
         }
 
         .loader::before {
@@ -35,37 +34,63 @@
         }
     </style>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // 定义需要预加载的图片数组
-            const imagesToPreload = [
-                "images/banner.png",
-                "images/bannerk.png",
-                "images/people.png",
-                // 更多图片
-            ];
+        // 检测是否基于 Chromium 的浏览器
+        function isChromiumBased() {
+            return navigator.userAgent.includes("Chrome") || navigator.userAgent.includes("Chromium");
+        }
 
-            let imagesLoaded = 0; // 计数器，跟踪已加载的图片数量
-            const totalImages = imagesToPreload.length; // 总图片数量
+        // 检测窗口大小是否至少是 720p
+        function isWindowSizeAtLeast720p() {
+            const minWidth = 1280;  // 720p 的宽度
+            const minHeight = 720;  // 720p 的高度
+            return window.innerWidth >= minWidth && window.innerHeight >= minHeight;
+        }
 
-            // 每当一张图片加载完成时调用的函数
-            function imageLoaded() {
-                imagesLoaded++; // 增加已加载的图片数
-                if (imagesLoaded === totalImages) { // 如果所有图片都已加载
-                    document.getElementById('loader').style.display = 'none';
-                }
+        // 主函数，检测浏览器兼容性
+        function checkCompatibility() {
+            if (!isChromiumBased() || !isWindowSizeAtLeast720p()) {
+                // 如果不符合要求，弹出警告窗口
+                alert('请使用基于 Chromium 的浏览器且窗口大小至少为 1280x720 的设备访问本网站。点击确定重新检测设置。');
+                // 使用 location.reload() 重新加载页面
+                location.reload();
+                return false; // 返回 false，取消后续脚本执行
             }
+            return true; // 返回 true，继续执行
+        }
 
-            // 预加载图片
-            imagesToPreload.forEach(imageSrc => {
-                const img = new Image(); // 创建Image对象
-                img.onload = imageLoaded; // 每当图片加载完成，调用imageLoaded函数
-                img.onerror = imageLoaded; // 即使图片加载失败也视为处理完毕，调用imageLoaded函数
-                img.src = imageSrc; // 设置图片源，这会开始下载图片
+        if (checkCompatibility()) {
+            document.addEventListener("DOMContentLoaded", function() {
+                // 定义需要预加载的图片数组
+                const imagesToPreload = [
+                    "images/banner.png",
+                    "images/bannerk.png",
+                    "images/people.png",
+                    // 更多图片
+                ];
+
+                let imagesLoaded = 0; // 计数器，跟踪已加载的图片数量
+                const totalImages = imagesToPreload.length; // 总图片数量
+
+                // 每当一张图片加载完成时调用的函数
+                function imageLoaded() {
+                    imagesLoaded++;
+                    if (imagesLoaded === totalImages) {
+                        document.getElementById('loader').style.display = 'none'; // 隐藏加载动画
+                    }
+                }
+
+                // 预加载图片
+                imagesToPreload.forEach(imageSrc => {
+                    const img = new Image();
+                    img.onload = imageLoaded;
+                    img.onerror = imageLoaded; // 加载失败也视为加载完成，避免阻塞
+                    img.src = imageSrc;
+                });
             });
-        });
+        }
     </script>
 </head>
-<body class="index">
+<body class="index" id="content">
 
 <!-- 加载指示器 -->
 <div id="loader" class="loader"></div>
@@ -82,7 +107,7 @@
 </a>
 
 <!-- 手语词典按钮，点击跳转到 'play.html' -->
-<a href="play.html" class="button-link">
+<a href="" class="button-link">
     <div class="button button-dictionary">
         <!-- SVG图标 -->
         <svg width="2.5vh" height="2.5vh" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">

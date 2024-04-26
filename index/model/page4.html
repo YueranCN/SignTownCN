@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>手语村</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/goto.css">
+    <style>
+        .video-k {
+            position: absolute;
+            width: 30vh;
+            height: 30vh;
+            top: 50vh;
+            left: 60vw;
+            transform: translate(-50%, -50%);
+        }
+        .video-right {
+            left: 80vw;
+        }
+        video {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 状态消息显示区域 -->
+<div id="statusMessage" class="status-message">做得好！</div>
+
+<!-- 视频和画布区域 -->
+<div class="video-k">
+    <video autoplay loop muted width="720" height="720">
+        <source src="../video/Apple.mp4" type="video/mp4">
+        抱歉，您的浏览器不支持内嵌视频。
+    </video>
+</div>
+<div class="video-k video-right">
+    <video id="videoPlayer" autoplay loop muted width="720" height="720">
+        <source src="../../nodejs/uploads/fixedVideoName.mp4" type="video/mp4">
+        抱歉，您的浏览器不支持内嵌视频。
+    </video>
+</div>
+
+<!-- 视频和图片遮罩 -->
+<div class="video-mask"></div>
+</body>
+</html>
