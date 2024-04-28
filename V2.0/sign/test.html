@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>播放录制的视频</title>
+</head>
+<body>
+<div>
+    <video id="videoPlayer" controls autoplay></video>
+</div>
+<script>
+    window.onload = () => {
+        const videoPlayer = document.getElementById('videoPlayer');
+        const videoBlob = sessionStorage.getItem('recordedVideo');
+
+        if (videoBlob) {
+            const url = URL.createObjectURL(videoBlob);
+            videoPlayer.src = url;
+            videoPlayer.load();
+            videoPlayer.onloadedmetadata = () => {
+                console.log('视频加载完毕，时长：', videoPlayer.duration);
+            };
+        } else {
+            console.log('会话存储中没有视频数据');
+        }
+    };
+</script>
+</body>
+</html>

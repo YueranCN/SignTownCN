@@ -1,0 +1,29 @@
+img {
+    position: absolute;
+    width: 40%;
+    top: 56%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.btn-go {
+    top: 84%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.mark {
+    position: absolute;
+    width: 78%;
+    height: 65%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 24px;
+    border: white 10px solid;
+}
+video {
+    position: absolute;
+    width: 78%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
