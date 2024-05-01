@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>手语村</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* 背景遮罩 */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        /* 模态框样式 */
+        .modal {
+            width: 74%;
+            height: 74%;
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            z-index: 2;
+        }
+        /* 模态框内的按钮样式 */
+        .close-btn {
+            float: right;
+            cursor: pointer;
+            z-index: 3;
+        }
+        /* 模态框内的 iframe 样式 */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 触发模态框的按钮 -->
+<button id="openModal">打开模态框</button>
+
+<!-- 模态框本身 -->
+<div class="modal-backdrop" id="backdrop"></div>
+<div class="modal" id="modal">
+    <iframe src="../page/page1.html"></iframe>
+    <span class="close-btn" id="closeModal">&times;</span>
+</div>
+
+<script>
+    // 获取元素
+    var modal = document.getElementById("modal");
+    var openBtn = document.getElementById("openModal");
+    var closeBtn = document.getElementById("closeModal");
+    var backdrop = document.getElementById("backdrop");
+
+    // 打开模态框
+    openBtn.onclick = function() {
+        modal.style.display = "block";
+        backdrop.style.display = "block";
+    }
+
+    // 关闭模态框
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+        backdrop.style.display = "none";
+    }
+</script>
+
+</body>
+</html>

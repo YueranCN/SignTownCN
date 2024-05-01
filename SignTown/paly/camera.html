@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>手语村</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* 防止滚动 */
+            height: 100vh; /* 全视窗高度 */
+            background-color: transparent;
+        }
+
+        /* 重置 iframe 样式 */
+        iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: none; /* 去除边框 */
+        }
+    </style>
+</head>
+<body>
+<iframe src="sign/page1.html" id="iframe-container"></iframe>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const combinedParams = urlParams.get('id');
+        const params = combinedParams.split(',');
+
+        // 存储参数到 sessionStorage
+        sessionStorage.setItem('param1', params[0]);
+        sessionStorage.setItem('param2', params[1]);
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const iframe = document.getElementById('iframe-container');
+        let currentPage = 1;
+        const totalPages = 5;
+
+        window.addEventListener('message', function(event) {
+            if (event.origin !== window.location.origin) {
+                return;
+            }
+
+            const { type, direction } = event.data;
+
+            // 检查是否接收到跳转到play.html的命令
+            if (type === 'gotoPlay') {
+                window.location.href = 'paly/indexk.html'; // 跳转到 play.html
+                return; // 处理完毕后退出函数
+            }
+
+            if (type === 'navigate') {
+                if ((direction === 'next' && currentPage < totalPages) || (direction === 'prev' && currentPage > 1)) {
+                    // 先淡出
+                    iframe.style.opacity = 0;
+
+                    // 设置延时以在淡出后更改 iframe 源
+                    setTimeout(() => {
+                        if (direction === 'next') {
+                            currentPage++;
+                        } else if (direction === 'prev') {
+                            currentPage--;
+                        }
+                        iframe.src = `sign/page${currentPage}.html`;
+
+                        // 等待 iframe 加载新页面并淡入
+                        iframe.onload = () => {
+                            iframe.style.opacity = 1;
+                        };
+                    }, 500); // 透明度变化的持续时间
+                }
+            }
+        });
+    });
+
+    function hidePlayPage() {
+        window.parent.hidePlayPage();
+    }
+</script>
+</body>
+</html>

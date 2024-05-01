@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File Upload Test</title>
+</head>
+<body>
+
+<h2>File Upload Test</h2>
+
+<!-- 创建一个表单，允许用户选择文件 -->
+<form id="uploadForm">
+    <input type="file" id="fileInput" name="file" />
+    <button type="button" onclick="uploadFile()">Upload File</button>
+</form>
+
+<!-- 显示服务器响应的区域 -->
+<div id="response"></div>
+
+<script>
+    // JavaScript函数，用于处理文件上传
+    function uploadFile() {
+        // 获取文件输入元素的值
+        var fileInput = document.getElementById('fileInput');
+        var file = fileInput.files[0];
+
+        // 创建FormData对象
+        var formData = new FormData();
+        formData.append('file', file);
+
+        // 使用fetch API发送POST请求
+        fetch('http://127.0.0.1:5000/upload/', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json()) // 假设服务器返回的是JSON格式的响应
+            .then(data => {
+                document.getElementById('response').textContent = 'Server Response: ' + JSON.stringify(data);
+            })
+            .catch(error => {
+                document.getElementById('response').textContent = 'Error: ' + error;
+            });
+    }
+</script>
+
+</body>
+</html>

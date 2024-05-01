@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>手语村</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* 重置样式 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* 防止滚动 */
+            height: 100vh; /* 全视窗高度 */
+            background-image: linear-gradient(to right, #eccdb1, #dbbe94);
+        }
+        /* 背景遮罩 */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        /* 模态框样式 */
+        .modal {
+            width: 74%;
+            height: 74%;
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(0.5); /* 初始缩放 */
+            background: white;
+            z-index: 2;
+            transition: transform 0.5s, opacity 0.5s; /* 动画效果 */
+            opacity: 0;
+            border-radius: 40px;
+            border: black 5px solid;
+        }
+        /* 模态框内的按钮样式 */
+        .close-btn {
+            position: absolute;
+            width: 4vw;
+            height: 4vw;
+            max-width: 80px;
+            max-height: 80px;
+            top: 2vw;
+            right: 1vw;
+            float: right;
+            cursor: pointer;
+            z-index: 3;
+        }
+        /* 模态框内的 iframe 样式 */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* 图片样式 */
+        .chang-1 {
+            position: absolute;
+            width: 80%;
+            height: auto;
+            top: 46%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .peo-1 {
+            position: absolute;
+            width: 6%;
+            height: auto;
+            top: 36%;
+            left: 42%;
+        }
+        .map-1 {
+            position: absolute;
+            width: 6%;
+            height: auto;
+            top: 38%;
+            left: 50%;
+        }
+        .map-2 {
+            position: absolute;
+            width: 6%;
+            height: auto;
+            top: 72%;
+            left: 66%;
+        }
+        /* 图片正常状态样式 */
+        .map-1, .map-2 {
+            transition: transform 0.3s ease; /* 平滑过渡效果 */
+        }
+
+        /* 图片被点击时的放大效果 */
+        .map-1:hover, .map-2:hover {
+            transform: scale(1.5); /* 放大到120%的大小 */
+        }
+
+        /* 添加全局渐入动画 */
+        body {
+            animation: fadeIn 4s ease-out 0s 1; /* 动画名称，持续时间，缓动函数，延迟时间，播放次数 */
+        }
+
+        /* 定义渐入动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .no-1 {
+            position: absolute;
+            width: 3%;
+            height: auto;
+            top: 70.5%;
+            left: 50.5%;
+        }
+        .no-2 {
+            position: absolute;
+            width: 3%;
+            height: auto;
+            top: 62%;
+            left: 48.5%;
+        }
+
+        #noteImage, #no2Image{
+            transition: transform 0.3s ease; /* 平滑的放大效果 */
+        }
+
+        #noteImage:hover, #no2Image:hover{
+            transform: scale(1.5); /* 鼠标悬停时放大图片 */
+        }
+
+        .biao-1 {
+            position: absolute;
+            width: 23%;
+            height: auto;
+            top: 12%;
+            left: 53%;
+            border: black 5px solid;
+            border-radius: 24px;
+            transition: opacity 0.5s ease;
+        }
+
+        .biao-2 {
+            position: absolute;
+            width: 23%;
+            height: auto;
+            top: 25%;
+            left: 50%;
+            border: black 5px solid;
+            border-radius: 24px;
+            transition: opacity 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 页面内容 -->
+<img src="../images/changjing2.png" class="chang-1" alt="chang">
+<div class="map-1" id="backModal">
+    <p>返回手语村</p>
+    <img src="../images/map4.png" alt="img">
+</div>
+<div class="map-2" id="openModal">
+    <img src="../images/map5.png" alt="img">
+    <p>&nbsp;学习手语</p>
+</div>
+
+
+<!-- 触发模态框的按钮 -->
+<!--<button id="openModal">打开模态框</button>-->
+
+<!-- 模态框本身 -->
+<div class="modal-backdrop" id="backdrop"></div>
+<div class="modal" id="modal">
+    <iframe src="../page/page3.html"></iframe>
+    <span class="close-btn" id="closeModal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path d="M2.293 2.293a1 1 0 0 1 1.414 0L8 6.586l4.293-4.293a1 1 0 1 1 1.414 1.414L9.414 8l4.293 4.293a1 1 0 0 1-1.414 1.414L8 9.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L6.586 8 2.293 3.707a1 1 0 0 1 0-1.414z"/>
+        </svg>
+    </span>
+</div>
+
+<script>
+    // 获取元素
+    var modal = document.getElementById("modal");
+    var openBtn = document.getElementById("openModal");
+    var closeBtn = document.getElementById("closeModal");
+    var backdrop = document.getElementById("backdrop");
+
+    // 打开模态框
+    openBtn.onclick = function() {
+        modal.style.display = "block";
+        backdrop.style.display = "block";
+        setTimeout(function() { // 延时以应用动画
+            modal.style.transform = "translate(-50%, -50%) scale(1)"; // 放大至原始尺寸
+            modal.style.opacity = "1";
+            backdrop.style.opacity = "1";
+        }, 10);
+    }
+
+    // 关闭模态框
+    closeBtn.onclick = function() {
+        modal.style.transform = "translate(-50%, -50%) scale(0.5)"; // 缩小
+        modal.style.opacity = "0";
+        backdrop.style.opacity = "0";
+        setTimeout(function() { // 延时以隐藏元素
+            modal.style.display = "none";
+            backdrop.style.display = "none";
+        }, 500); // 与动画时间相匹配
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const image = document.querySelector('.peo-1'); // 获取图片元素
+        let currentSrc = 'people2';
+
+        setInterval(() => {
+            if (currentSrc === 'people2') {
+                image.src = '../images/people3.png'; // 更改图片源
+                currentSrc = 'people3';
+            } else {
+                image.src = '../images/people2.png'; // 更改图片源回原图
+                currentSrc = 'people2';
+            }
+        }, 500); // 每500毫秒切换一次
+    });
+
+    var backModal = document.getElementById('backModal');
+    backModal.onclick = function() {
+        window.location.href = '../indexk.html';
+    };
+    document.getElementById('noteImage').addEventListener('mouseover', function() {
+        this.src = '../images/notes1_hover.png'; // 鼠标悬停时更改图片
+    });
+
+    document.getElementById('noteImage').addEventListener('mouseout', function() {
+        this.src = '../images/notes1.png'; // 鼠标移开时恢复原始图片
+    });
+
+    document.getElementById('no2Image').addEventListener('mouseover', function() {
+        this.src = '../images/notes2_hover.png'; // 鼠标悬停时更改图片
+    });
+
+    document.getElementById('no2Image').addEventListener('mouseout', function() {
+        this.src = '../images/notes2.png'; // 鼠标移开时恢复原始图片
+    });
+
+
+    // 设置初始透明度
+    document.getElementById('img4').style.opacity = "0";
+    document.getElementById('img5').style.opacity = "0";
+
+    // 监听noteImage的点击事件，增加透明度
+    document.getElementById('noteImage').addEventListener('click', function(event) {
+        var img = document.getElementById('img4');
+        img.style.opacity = "1"; // 设置为半透明
+        event.stopPropagation(); // 阻止事件冒泡到document
+    });
+
+    // 监听整个文档的点击事件，用于恢复透明度
+    document.addEventListener('click', function(event) {
+        var img = document.getElementById('img4');
+        // 检查点击是否发生在img4图片本身
+        if (event.target !== img) {
+            img.style.opacity = "0"; // 恢复透明度为完全透明
+        }
+    });
+
+    // 监听no2Image的点击事件，增加透明度
+    document.getElementById('no2Image').addEventListener('click', function(event) {
+        var img = document.getElementById('img5');
+        img.style.opacity = "1"; // 设置为半透明
+        event.stopPropagation(); // 阻止事件冒泡到document
+    });
+
+    // 监听整个文档的点击事件，用于恢复透明度
+    document.addEventListener('click', function(event) {
+        var img = document.getElementById('img5');
+        // 检查点击是否发生在img5图片本身
+        if (event.target !== img) {
+            img.style.opacity = "0"; // 恢复透明度为完全透明
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+img {
+    position: absolute;
+    width: 40%;
+    top: 56%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.btn-go {
+    top: 88%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+video {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 40px;
+    border: black 8px solid;
+}

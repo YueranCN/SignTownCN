@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>手语村</title>
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        .page1-box-1, .page2-box-1, .page3-box-1, .page4-box-1 {
+            width: 60vw;
+            height: 60vh;
+            top: 10vh; left: 20vw;
+        }
+        .chang-1 {
+            position: absolute;
+            width: 100%;
+            height: auto;
+        }
+        .peo-1 {
+            position: absolute;
+            width: 8%;
+            height: auto;
+            top: 38%;
+            left: 36%;
+        }
+        .button-left, .button-right {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 页面内容 -->
+<div class="container">
+    <div class="page" id="page1">
+        <button onclick="toggleModal('modal1', 'page/page1.html')" class="button-play">显示弹窗</button>
+    </div>
+    <div class="page" id="page2">
+        <button onclick="toggleModal('modal2', 'page/page2.html')" class="button-play">显示弹窗</button>
+    </div>
+    <div class="page" id="page3">
+        <button onclick="toggleModal('modal3', 'page/page3.html')" class="button-play">显示弹窗</button>
+    </div>
+    <div class="page" id="page4">
+        <p>页面 4</p>
+        <button onclick="toggleModal('modal4', 'page/page4.html')" class="button-play">显示弹窗</button>
+    </div>
+</div>
+
+
+<!-- 页面框 -->
+<div class="box page1-box-1">
+    <img src="images/changjing1.png" class="chang-1" alt="chang">
+    <img src="images/people2.png" class="peo-1" alt="peo">
+</div>
+<div class="box page1-box-2"></div>
+<div class="box page1-box-3"></div>
+<div class="box page1-box-4"></div>
+
+<div class="box page2-box-1">
+    <img src="images/changjing2.jpg" class="chang-1" alt="chang">
+</div>
+<div class="box page2-box-2"></div>
+<div class="box page2-box-3"></div>
+<div class="box page2-box-4"></div>
+
+<div class="box page3-box-1">
+    <img src="images/changjing3.jpg" class="chang-1" alt="chang">
+</div>
+<div class="box page3-box-2"></div>
+<div class="box page3-box-3"></div>
+<div class="box page3-box-4"></div>
+
+<div class="box page4-box-1">框1-4</div>
+<div class="box page4-box-2">框2-4</div>
+<div class="box page4-box-3">框3-4</div>
+<div class="box page4-box-4">框4-4</div>
+
+
+<!-- 固定元素 -->
+<!--<a class="text-left">这是左边的文本内容</a>-->
+<!--<a class="text-right">这是右边的文本内容</a>-->
+
+
+<!-- 左右切换按钮 -->
+<!--<button class="button-left" onclick="switchPage(-1)"></button>-->
+<!--<button class="button-right" onclick="switchPage(1)"></button>-->
+
+<!-- 遮罩层 -->
+<div id="overlay" class="overlay"></div>
+<!-- 模态窗口 -->
+<div id="modal1" class="modal">
+    <iframe id="iframe1" src="about:blank" class="iframe"></iframe>
+    <button onclick="toggleModal('modal1', 'page/page1.html')" class="button-on"></button>
+</div>
+<div id="modal2" class="modal">
+    <iframe id="iframe2" src="about:blank" class="iframe"></iframe>
+    <button onclick="toggleModal('modal2', 'page/page2.html')" class="button-on"></button>
+</div>
+<div id="modal3" class="modal">
+    <iframe id="iframe3" src="about:blank" class="iframe"></iframe>
+    <button onclick="toggleModal('modal3', 'page/page3.html')" class="button-on"></button>
+</div>
+<div id="modal4" class="modal">
+    <iframe id="iframe4" src="about:blank" class="iframe"></iframe>
+    <button onclick="toggleModal('modal4', 'page/page4.html')" class="button-on"></button>
+</div>
+
+
+
+
+
+<script src="js/index.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const image = document.querySelector('.peo-1'); // 获取图片元素
+        let currentSrc = 'people2';
+
+        setInterval(() => {
+            if (currentSrc === 'people2') {
+                image.src = 'images/people3.png'; // 更改图片源
+                currentSrc = 'people3';
+            } else {
+                image.src = 'images/people2.png'; // 更改图片源回原图
+                currentSrc = 'people2';
+            }
+        }, 500); // 每500毫秒切换一次
+    });
+</script>
+</body>
+</html>

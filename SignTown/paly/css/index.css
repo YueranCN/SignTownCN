@@ -1,0 +1,176 @@
+/* css/play.css */
+/*
+    时间: 2024/04/18
+    作者：Frank Wang
+ */
+
+/* 基础样式重置 */
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* 防止滚动 */
+    height: 100vh; /* 全视窗高度 */
+    background-image: linear-gradient(to right, #eccdb1, #dbbe94);
+}
+
+/* 容器样式，用于包含所有页面 */
+.container {
+    width: 400vw; /* 总宽度为4个视窗宽 */
+    height: 100vh;
+    position: relative;
+    overflow: hidden; /* 隐藏超出部分 */
+    transition: transform 0.5s ease-in-out; /* 平滑过渡动画 */
+}
+
+/* 单页样式 */
+.page {
+    width: 100vw; /* 视窗宽度 */
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box; /* 边界盒模型 */
+}
+
+/* 页面定位 */
+#page1 { left: 0; }
+#page2 { left: 100vw; }
+#page3 { left: 200vw; }
+#page4 { left: 300vw; }
+
+/* 左右翻页按钮样式 */
+.button-left, .button-right {
+    position: absolute;
+    width: 8vw;
+    height: 8vw;
+    max-width: 160px;
+    max-height: 160px;
+    top: 50vh;
+    transform: translateY(-50%); /* 垂直居中 */
+    z-index: 1000;
+}
+.button-left { left: 4vw; }
+.button-right { right: 4vw; }
+
+/* 模态窗口样式 */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.6); /* 缩放并居中 */
+    width: 72vw;
+    height: 72vh;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    display: none; /* 默认不显示 */
+    opacity: 0; /* 透明 */
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+.modal.show {
+    display: block;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1); /* 显示并放大 */
+}
+
+/* 遮罩层样式 */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    opacity: 0;
+    z-index: 1500;
+    transition: opacity 0.3s ease-in-out;
+}
+.overlay.show {
+    display: block;
+    opacity: 1;
+}
+
+/* iframe样式 */
+.iframe {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border: none;
+}
+
+/* 关闭按钮样式 */
+.button-on {
+    position: absolute;
+    width: 4vw;
+    height: 4vw;
+    max-width: 80px;
+    max-height: 80px;
+    top: 2vw;
+    right: 2vw;
+    z-index: 2500;
+}
+
+/* 元素基本位置样式 */
+.box {
+    position: absolute;
+    transform: translate(100vw);
+    transition: transform 0.5s ease-in-out;
+}
+
+
+/* 元素色块样式 */
+.page2-box-1, .page3-box-1, .page4-box-1 {
+    width: 60vw;
+    height: 60vh;
+    top: 30vh; left: 30vw;
+}
+.page1-box-2, .page2-box-2, .page3-box-2, .page4-box-2 {
+    width: 20vw;
+    height: 20vh;
+    top: 20vh; left: 30vw;
+}
+.page1-box-3, .page2-box-3, .page3-box-3, .page4-box-3 {
+    width: 10vw;
+    height: 10vh;
+    top: 10vh; left: 10vw;
+}
+.page1-box-4, .page2-box-4, .page3-box-4, .page4-box-4 {
+    width: 40vw;
+    height: 40vh;
+    top: 40vh; left: 40vw;
+}
+
+/* 其他元素样式 */
+.split {
+    position: absolute;
+    background-color: black;
+    width: 100vw;
+    height: 10px;
+    top: calc(64vh - 10px); /* 调整位置 */
+    left: 0;
+}
+.button-play {
+    position: absolute;
+    width: 16vw;
+    height: 8vh;
+    max-width: 320px;
+    max-height: 160px;
+    top: 80vh;
+    left: 50vw;
+    transform: translate(-50%);
+}
+.text-right, .text-left {
+    position: absolute;
+    background-color: #aaaaaa;
+    width: 20vw;
+    height: 6vh;
+    max-width: 400px;
+    max-height: 120px;
+    font-size: 1.5em; /* 文本尺寸 */
+    bottom: 6vh;
+}
+.text-right { right: 6vh; }
+.text-left { left: 6vh; }

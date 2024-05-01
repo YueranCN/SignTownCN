@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>手语村</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* 防止滚动 */
+            height: 100vh; /* 全视窗高度 */
+            background-color: rgb(249, 190, 122);
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #e9dac8;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none; /* 防止遮罩层阻挡页面操作 */
+            z-index: 999; /* 确保遮罩层在顶层 */
+        }
+        img {
+            position: absolute;
+        }
+        .img-1 {
+            width: 58%;
+            height: auto;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .img-2 {
+            width: 25%;
+            height: auto;
+            top: 30%;
+            left: 31%;
+            transform: translate(-50%, -50%);
+        }
+        .img-3 {
+            width: 18%;
+            height: auto;
+            top: 20%;
+            left: 37%;
+            transform: translate(-50%, -50%);
+        }
+        .img-4 {
+            width: 18%;
+            height: auto;
+            top: 68%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+        }
+        .img-5 {
+            width: 18%;
+            height: auto;
+            top: 24%;
+            left: 67%;
+            transform: translate(-50%, -50%);
+        }
+        .img-6 {
+            width: 14%;
+            height: auto;
+            top: 46%;
+            left: 82%;
+            transform: translate(-50%, -50%);
+        }
+        .img-7 {
+            width: 25%;
+            height: auto;
+            top: 80%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        /* 定义从左边滑入的动画，同时包括居中偏移 */
+        @keyframes slideInFromLeft {
+            0% {
+                transform: translate(-100%, -50%);
+            }
+            100% {
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        /* 定义从右边滑入的动画，同时包括居中偏移 */
+        @keyframes slideInFromRight {
+            0% {
+                transform: translate(100%, -50%);
+            }
+            100% {
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        /* 定义从上边滑入的动画，同时包括居中偏移 */
+        @keyframes slideInFromTop {
+            0% {
+                transform: translate(-50%, -100%);
+            }
+            100% {
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        /* 定义淡入动画 */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+         /* 应用动画到具体的图片 */
+        .img-3, .img-4, .img-7 {
+            animation: slideInFromLeft 4s ease-out forwards;
+        }
+
+        .img-5, .img-6 {
+            animation: slideInFromRight 4s ease-out forwards;
+        }
+
+        .img-2 {
+            animation: fadeIn 4s ease-out forwards;
+        }
+
+        .img-2 {
+            animation: slideInFromTop 4s ease-out forwards;
+        }
+
+        .img-1 {
+            animation: fadeIn 7s ease-out forwards;
+        }
+    </style>
+    <style>
+        .map-1 {
+            width: 2%;
+            height: auto;
+            top: 56%;
+            left: 45%;
+        }
+        .map-2 {
+            width: 2%;
+            height: auto;
+            top: 42%;
+            left: 60%;
+        }
+        .map-3 {
+            width: 2%;
+            height: auto;
+            top: 64%;
+            left: 58%;
+        }
+
+        .map-1, .map-2, .map-3 {
+            animation: fadeIn 6s ease-out forwards;
+        }
+        /* 图片正常状态样式 */
+        .map-1, .map-2, .map-3 {
+            transition: transform 0.3s ease; /* 平滑过渡效果 */
+        }
+
+        /* 图片被点击时的放大效果 */
+        .map-1:hover, .map-2:hover, .map-3:hover {
+            transform: scale(1.5); /* 放大到120%的大小 */
+        }
+    </style>
+</head>
+<body>
+
+<!-- 页面内容 -->
+<img src="images/top.png" class="img-2" alt="top">
+<img src="images/changjing.png" class="img-1" alt="home">
+<img src="images/yun.png" class="img-3" alt="yun">
+<img src="images/yun1.png" class="img-4" alt="yun">
+<img src="images/yun3.png" class="img-5" alt="yun">
+<img src="images/yun4.png" class="img-6" alt="yun">
+<img src="images/yun5.png" class="img-7" alt="yun">
+
+<a href="play/play1.html"><img src="images/map1.png" class="map-1" alt="map"></a>
+<a href="play/play2.html"><img src="images/map2.png" class="map-2" alt="map"></a>
+<a href="play/play3.html"><img src="images/map3.png" class="map-3" alt="map"></a>
+
+<div class="overlay" id="fadeOverlay"></div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const links = document.querySelectorAll('a'); // 获取所有链接
+        const overlay = document.getElementById('fadeOverlay');
+
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault(); // 阻止链接的默认跳转行为
+                const destination = this.href; // 获取链接的目标URL
+
+                overlay.style.opacity = '1'; // 触发淡出效果
+                overlay.style.pointerEvents = 'auto'; // 允许遮罩层接收点击事件，避免用户在动画期间进行操作
+
+                setTimeout(() => {
+                    window.location.href = destination; // 0.5秒后跳转到链接目标
+                }, 500); // 与CSS动画时长一致
+            });
+        });
+    });
+</script>
+</body>
+</html>

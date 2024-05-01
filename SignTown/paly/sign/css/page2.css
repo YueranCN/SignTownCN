@@ -1,0 +1,41 @@
+.mark {
+    position: absolute;
+    width: 44%;
+    height: 65%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 24px;
+    border: white 10px solid;
+}
+video {
+    position: absolute;
+    width: 44%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+p {
+    color: rgb(0, 0, 0);
+    font-family: 思源黑体,sans-serif;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 21%;
+    left: 86%;
+    transform: translate(-50%, -50%);
+}
+.img-1 {
+    position: absolute;
+    width: 10%;
+    height: auto;
+    top: 30%;
+    right: 76%;
+    transform: translate(-50%, -50%);
+}
+.btn-go {
+    top: 84%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
