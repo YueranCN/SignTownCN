@@ -40,6 +40,8 @@ camera.start();
 
 // 绑定开始按钮点击事件
 startButton.addEventListener('click', function() {
+    var button = document.getElementById('startButton');
+    button.disabled = !button.disabled;
     startCountdown(3); // 点击按钮后开始倒计时
 });
 
@@ -81,28 +83,42 @@ function startRecording() {
                 // 存储视频数据到会话存储
                 sessionStorage.setItem('recordedVideo', videoURL);
 
-                statusMessage.textContent = '视频录制完成';
                 window.parent.postMessage({ type: 'switchIframe', index: 3 }, '*');
 
                 // 创建 FormData 对象并添加视频文件
                 let formData = new FormData();
-                formData.append('video', blob, 'recordedVideo.mp4');
+                formData.append('file', blob, 'recordedVideo.mp4');
 
                 // 发送视频文件到服务器
-                fetch('http://localhost:3000/upload', {
+                // 使用fetch API发送POST请求
+                fetch('http://127.0.0.1:5000/upload/', {
                     method: 'POST',
                     body: formData
                 })
-                    .then(response => response.json())  // 假设服务器返回 JSON 格式的响应
+                    .then(response => response.json()) // 假设服务器返回的是JSON格式的响应
                     .then(data => {
-                        console.log('视频上传成功', data);
-                        // 可以在这里处理服务器返回的数据
+                        // 提取服务器响应中的 'response' 字段
+                        const fruit = data.response;
+                        // 要进行对比的字符串
+                        const storedParam1 = '苹果'
+
+                        let matchFound = false;
+                        let matchedParam = '';
+
+                        if (fruit === storedParam1) {
+                            matchFound = true;
+                            matchedParam = storedParam1;
+                        }
+
+                        if (matchFound) {
+                            window.parent.postMessage({ type: 'navigate', direction: 'next' }, '*');
+                        } else {
+                            document.getElementById('statusMessage').textContent = '你好像打的不是任何一个手语哦';
+                        }
                     })
                     .catch(error => {
-                        console.error('视频上传失败', error);
+                        document.getElementById('statusMessagee').textContent = 'Error: ' + error;
                     });
-
-                window.parent.postMessage({ type: 'navigate', direction: 'next' }, '*');
             };
 
             mediaRecorder.start();
@@ -112,7 +128,7 @@ function startRecording() {
                 recordingTime--;
                 if (recordingTime < 0) {
                     clearInterval(countdownInterval);
-                    statusMessage.textContent = '录制结束';
+                    // statusMessage.textContent = '录制结束';
                     mediaRecorder.stop();
                 }
             }, 1000);

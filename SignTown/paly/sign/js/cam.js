@@ -40,6 +40,8 @@ camera.start();
 
 // 绑定开始按钮点击事件
 startButton.addEventListener('click', function() {
+    var button = document.getElementById('startButton');
+    button.disabled = !button.disabled;
     startCountdown(3); // 点击按钮后开始倒计时
 });
 
@@ -113,7 +115,7 @@ function startRecording() {
                         }
 
                         if (matchFound) {
-                            document.getElementById('statusMessage').textContent = '你打的是？' + matchedParam;
+                            window.parent.postMessage({ type: 'navigate', direction: 'next' }, '*');
                         } else {
                             document.getElementById('statusMessage').textContent = '你好像打的不是任何一个手语哦';
                         }

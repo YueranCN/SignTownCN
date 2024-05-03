@@ -1,0 +1,238 @@
+
+
+.about-us {
+    margin: 20px;
+    padding: 20px;
+}
+
+.about-us h2 {
+    margin-top: 0;
+}
+
+.about-us p {
+    text-align: justify;
+    line-height: 1.6;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.logo {
+    font-size: 20px;
+    color:black;
+    padding: 0 50px 0 50px;
+    position: relative;
+    font-weight: bold;
+    box-shadow: 4px 0px 4px rgba(0, 0, 0, .1);
+}
+
+.search-container {
+    text-align: center;
+    padding-top: 5px;
+    float: right;
+    margin-right: 30px;
+    position: relative;
+}
+
+.search-container input[type="text"] {
+    width: 200px;
+    padding: 10px;
+    border-radius: 30px;
+    border: 2px solid gray;
+    margin-top: 20px;
+}
+
+.search-container input[type="button"] {
+    padding: 10px 20px;
+    border-radius: 30px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+
+
+
+.categories :hover {
+    background-color: black;
+    color: white;
+    border-color: black;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+}
+
+#search-results {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    position: relative;
+}
+
+.nav-table2 {
+    width: 100px;
+    color: dimgray;
+    float: right;
+
+    position: relative;
+}
+.nav-table2 >a{
+    width: 80px;
+    height:30px;
+    color: dimgray;
+    float: right;
+    margin-top: 17px;
+    padding-top:10px;
+    position: relative;
+
+}
+.nav-table2 a:hover{
+    background-color: #007bff;
+    border-radius: 40px;
+    color: white;
+
+}
+
+
+.header {
+    height: 80px;
+
+    background: white;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+
+}
+
+.header > a {
+    display: block;
+    float: left;
+    margin: 6px 30px;
+    transition: background-color 0.3s;
+}
+
+.nav > ul {
+    line-height: 80px;
+    list-style: none;
+    text-align: center;
+}
+
+.nav > ul > li {
+    float: left;
+    position: relative;
+}
+
+.nav > ul > li>a {
+    float: left;
+    position: relative;
+    width:150px;
+    margin-left: 10px;
+}
+.nav > ul > li>a :hover{
+    background-color: black;
+    color: white;
+
+}
+
+
+
+
+.nav22 {
+    display: flex;
+    justify-content: center;
+}
+
+.nav22 > ul {
+    line-height: 60px;
+    list-style: none;
+    text-align: center;
+    border-radius: 30px;
+    margin-top: 10px;
+
+}
+
+.nav22 > ul > li {
+    float: left;
+    position: relative;
+    height: 60px;
+}
+
+
+
+.nav22 > ul > li > a {
+    color: black;
+    padding: 10px 40px 10px 40px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.nav22 > ul > li > a:hover {
+    color: white;
+    background-color:black;
+    border-radius: 30px;
+}
+
+.nav22 > ul > li > ul {
+    display: none;
+    list-style: none;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 0px 8px 10px 0px gray;
+    position: absolute;
+    z-index: 3;
+    box-sizing: border-box;
+}
+
+.nav22 > ul > li > ul > li > a {
+    display: block;
+    width: 120px;
+    box-sizing: border-box;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+    line-height: 40px;
+    height: 40px;
+}
+
+.nav22 > ul > li > ul > li > a:hover {
+    color: white;
+    background-color: black;
+    border-radius: 30px;
+}
+
+
+
+img {
+    width:300px;
+}
+.container {
+    position: relative;
+    width: 300px;
+    float:left;
+    margin-top:1px;
+    margin-left:150px;
+    margin-right:100px;
+	color:#69F;
+}
+
+.container img {
+    position: absolute;
+
+    left:150px;
+}
+.one{
+    font-size:16px;
+    color:#666;
+    line-height:1.8;
+}

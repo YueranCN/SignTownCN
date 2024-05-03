@@ -7,17 +7,8 @@ img {
 }
 .btn-go {
     top: 88%;
-    left: 65%;
+    left: 50%;
     transform: translate(-50%, -50%);
-}
-.btn-back {
-    top: 88%;
-    left: 35%;
-    transform: translate(-50%, -50%);
-    background-color: rgb(205, 205, 205);
-}
-.btn-back:hover {
-    background-color: rgb(175, 186, 203);
 }
 .mark {
     position: absolute;
