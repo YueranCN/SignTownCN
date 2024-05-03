@@ -1,0 +1,22 @@
+img {
+    position: absolute;
+    width: 40%;
+    top: 56%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.btn-go {
+    top: 88%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.btn-back:hover {
+    background-color: rgb(175, 186, 203);
+}
+.img {
+    position: absolute;
+    width: 30%;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
