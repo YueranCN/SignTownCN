@@ -2,46 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>File Upload Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>播放录制的视频</title>
 </head>
 <body>
-
-<h2>File Upload Test</h2>
-
-<!-- 创建一个表单，允许用户选择文件 -->
-<form id="uploadForm">
-    <input type="file" id="fileInput" name="file" />
-    <button type="button" onclick="uploadFile()">Upload File</button>
-</form>
-
-<!-- 显示服务器响应的区域 -->
-<div id="response"></div>
+<h1>播放录制的视频</h1>
+<div class="mark-k">
+    <video class="you_video" autoplay loop muted>
+        <source src="" type="video/mp4">
+        抱歉，您的浏览器不支持内嵌视频。
+    </video>
+</div>
 
 <script>
-    // JavaScript函数，用于处理文件上传
-    function uploadFile() {
-        // 获取文件输入元素的值
-        var fileInput = document.getElementById('fileInput');
-        var file = fileInput.files[0];
+    document.addEventListener('DOMContentLoaded', function() {
+        const videoElement = document.querySelector('.you_video');
+        const videoSource = videoElement.querySelector('source');
 
-        // 创建FormData对象
-        var formData = new FormData();
-        formData.append('file', file);
+        // 从 Cookie 中读取视频 URL
+        const videoURL = getCookie('recordedVideo');
 
-        // 使用fetch API发送POST请求
-        fetch('http://127.0.0.1:5000/upload/', {
-            method: 'POST',
-            body: formData
-        })
-            .then(response => response.json()) // 假设服务器返回的是JSON格式的响应
-            .then(data => {
-                document.getElementById('response').textContent = 'Server Response: ' + JSON.stringify(data);
-            })
-            .catch(error => {
-                document.getElementById('response').textContent = 'Error: ' + error;
-            });
+        if (videoURL) {
+            videoSource.src = decodeURIComponent(videoURL);
+            videoElement.load(); // 重要：更新视频元素以加载新的源
+        } else {
+            console.log('没有找到录制的视频URL');
+        }
+    });
+
+    // 辅助函数：从 Cookie 中读取特定名称的值
+    function getCookie(name) {
+        let nameEQ = name + "=";
+        let ca = document.cookie.split(';');
+        for(let i=0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
     }
 </script>
-
 </body>
 </html>

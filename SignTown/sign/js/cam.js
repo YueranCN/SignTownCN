@@ -113,7 +113,10 @@ function startRecording() {
                         if (matchFound) {
                             window.parent.postMessage({ type: 'navigate', direction: 'next' }, '*');
                         } else {
-                            document.getElementById('statusMessage').textContent = '你好像打的不是任何一个手语哦';
+                            document.getElementById('statusMessage').textContent = '你好像打的不对哦';
+                            setTimeout(function() {
+                                window.parent.postMessage({ type: 'navigate', direction: 'prev' }, '*');
+                            }, 2000);
                         }
                     })
                     .catch(error => {

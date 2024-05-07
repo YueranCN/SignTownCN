@@ -157,19 +157,29 @@
             left: 58%;
         }
 
-        .map-1, .map-2, .map-3 {
-            animation: fadeIn 6s ease-out forwards;
-        }
-        /* 图片正常状态样式 */
-        .map-1, .map-2, .map-3 {
-            transition: transform 0.3s ease; /* 平滑过渡效果 */
+
+        @keyframes fadeInAndPulse {
+            0% {
+                opacity: 0;
+                transform: scale(1);
+            }
+            16.7% { /* 6秒的淡入占总动画时间的1/6 */
+                opacity: 1;
+                transform: scale(1);
+            }
+            25%, 50%, 75%, 100% { /* 从总动画时间的25%开始周期性地放大和缩小 */
+                transform: scale(1);
+            }
+            37.5%, 62.5%, 87.5% { /* 适当调整这些值以达到期望的效果 */
+                transform: scale(1.5);
+            }
         }
 
-        /* 图片被点击时的放大效果 */
-        .map-1:hover, .map-2:hover, .map-3:hover {
-            transform: scale(1.5); /* 放大到120%的大小 */
+        /* 基本动画 */
+        .map-1, .map-2, .map-3 {
+            animation: fadeInAndPulse 12s ease-out infinite;
+            transition: transform 0.3s ease; /* 确保 hover 的变换过渡平滑 */
         }
-
 
     </style>
 </head>

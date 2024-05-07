@@ -1,0 +1,87 @@
+h2 {
+    position: absolute;
+    font-size: 2em;
+    color: black;
+    text-align: center;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.video-1 {
+    position: absolute;
+    width: 28%;
+    top: 54%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    border-radius: 40px;
+    border: black 5px solid;
+}
+.video-2 {
+    position: absolute;
+    width: 28%;
+    top: 54%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    border-radius: 40px;
+    border: black 5px solid;
+}
+/* 通用按钮样式 */
+.btn {
+    position: absolute; /* 绝对定位，可以自由放置在页面上 */
+    width: 240px; /* 按钮宽度 */
+    height: 80px; /* 按钮高度 */
+    border-radius: 40px; /* 边框圆角，使按钮边缘呈圆形 */
+    background-color: rgb(43, 80, 161); /* 按钮背景颜色 */
+    color: white; /* 文本颜色 */
+    border: none; /* 无边框 */
+    cursor: pointer; /* 鼠标悬停时显示指针，提示这是一个可点击的元素 */
+    transition: background-color 0.3s; /* 背景色变化的过渡效果持续0.3秒 */
+    display: flex; /* 使用弹性盒模型对内容进行布局 */
+    justify-content: center; /* 子元素水平居中 */
+    align-items: center; /* 子元素垂直居中 */
+    font-family: '思源黑体', sans-serif; /* 设置字体为思源黑体，若无则使用系统默认的无衬线字体 */
+    font-size: 26px; /* 字体大小 */
+    font-weight: bold; /* 字体加粗 */
+    top: 90%; /* 距离顶部80%处 */
+    left: 50%; /* 距离左侧50%处 */
+    transform: translate(-50%, -50%); /* 水平垂直居中 */
+}
+.btn:hover {
+    background-color: rgb(78, 110, 242); /* 鼠标悬停时背景颜色 */
+}
+.btn:disabled {
+    background-color: rgb(119, 126, 140); /* 禁用状态下的背景颜色 */
+    cursor: not-allowed; /* 禁用状态下的鼠标样式 */
+}
+.h-1 {
+    position: absolute;
+    font-size: 2em;
+    color: black;
+    text-align: center;
+    top: 18%;
+    left: 18%;
+}
+.h-2 {
+    position: absolute;
+    font-size: 2em;
+    color: black;
+    text-align: center;
+    top: 18%;
+    left: 58%;
+}
+.img-1 {
+    position: absolute;
+    width: 6%;
+    top: 20%;
+    left: 36%;
+}
+.img-2 {
+    position: absolute;
+    width: 6%;
+    top: 20%;
+    left: 76%;
+}
+.play-page {
+    border-radius: 40px;
+    overflow: hidden;
+}

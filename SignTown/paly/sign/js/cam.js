@@ -82,6 +82,7 @@ function startRecording() {
 
                 // 存储视频数据到会话存储
                 sessionStorage.setItem('recordedVideo', videoURL);
+                document.cookie = "recordedVideo=" + encodeURIComponent(videoURL) + "; path=/; max-age=86400";
 
                 window.parent.postMessage({ type: 'switchIframe', index: 3 }, '*');
 
@@ -115,9 +116,11 @@ function startRecording() {
                         }
 
                         if (matchFound) {
+                            sessionStorage.setItem('matchedFruit', matchedParam);
                             window.parent.postMessage({ type: 'navigate', direction: 'next' }, '*');
                         } else {
-                            document.getElementById('statusMessage').textContent = '你好像打的不是任何一个手语哦';
+                            window.parent.postMessage({ type: 'navigate', direction: 'next' }, '*');
+                            window.parent.postMessage({ type: 'navigate', direction: 'next' }, '*');
                         }
                     })
                     .catch(error => {

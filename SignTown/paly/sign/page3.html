@@ -6,11 +6,27 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/page5.css">
     <title>手语村</title>
+    <style>
+        .btn-go {
+            top: 88%;
+            left: 65%;
+            transform: translate(-50%, -50%);
+        }
+        .btn-back {
+            top: 88%;
+            left: 35%;
+            transform: translate(-50%, -50%);
+            background-color: rgb(205, 205, 205);
+        }
+    </style>
 </head>
 <body>
 
+<div id="statusMessage" class="status-message"></div>
+
 <!-- 开始游戏按钮 -->
 <button class="btn btn-go" id="startButton1">返回选词</button>
+<button class="btn btn-back" id="startButton2">再试一次</button>
 
 <img src="../images/img.png" alt="" class="img">
 
@@ -21,6 +37,25 @@
         // 使用postMessage通知父页面跳转到play.html
         window.parent.hidePlayPage();
     });
+    const startButton2 = document.getElementById('startButton2');
+    startButton2.addEventListener('click', function() {
+        // 使用postMessage通知父页面进行页面导航
+        window.parent.postMessage({ type: 'navigate', direction: 'prev' }, '*');
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        // 页面加载完成后执行
+        const matchedFruit = sessionStorage.getItem('matchedFruit');  // 从sessionStorage获取存储的手语信息
+
+        if (matchedFruit) {
+            // 如果存在匹配的手语信息，显示到statusMessage元素中
+            document.getElementById('statusMessage').textContent = '你打对了' + matchedFruit + '手语';
+            sessionStorage.removeItem('matchedFruit');
+        } else {
+            // 如果没有匹配的手语信息，显示默认信息
+            document.getElementById('statusMessage').textContent = '没有匹配的手语信息';
+        }
+    });
+
 </script>
 </body>
 </html>

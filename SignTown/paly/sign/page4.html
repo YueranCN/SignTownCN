@@ -6,6 +6,22 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/page4.css">
     <title>手语村</title>
+    <style>
+        .status-message {
+            top: 30%;
+        }
+        .btn-go {
+            top: 88%;
+            left: 65%;
+            transform: translate(-50%, -50%);
+        }
+        .btn-back {
+            top: 88%;
+            left: 35%;
+            transform: translate(-50%, -50%);
+            background-color: rgb(205, 205, 205);
+        }
+    </style>
 </head>
 <body>
 
@@ -13,32 +29,58 @@
 <div id="statusMessage" class="status-message">你好像做错了</div>
 
 <!-- 开始游戏按钮 -->
-<button class="btn btn-go" id="startButton1">返回选词</button>
-
-<!-- 视频播放区域 -->
-<div class="jumbotron">
-    <div class="mark">
-        <video class="my_video" autoplay loop muted>
-            <source src="../../nodejs/uploads/fixedVideoName.mp4" type="video/mp4">
-            抱歉，您的浏览器不支持内嵌视频。
-        </video>
-    </div>
-    <div class="mark-k">
-        <video class="you_video" autoplay loop muted>
-            <source src="../assets/video/Apple.mp4" type="video/mp4">
-            抱歉，您的浏览器不支持内嵌视频。
-        </video>
-    </div>
+<button class="btn btn-go" id="startButton1">再试一次</button>
+<button class="btn btn-back" id="startButton2">返回选词</button>
+<div class="mark-k">
+    <video class="you_video" autoplay loop muted>
+        <source src="" type="video/mp4">
+        抱歉，您的浏览器不支持内嵌视频。
+    </video>
 </div>
-
 <!-- 选择区域 -->
 <script src="js/page4.js"></script>
 <script>
     const startButton = document.getElementById('startButton1');
     startButton.addEventListener('click', function() {
+        window.parent.postMessage({ type: 'navigate', direction: 'prev' }, '*');
+        window.parent.postMessage({ type: 'navigate', direction: 'prev' }, '*');
+    });
+
+    const startButton1 = document.getElementById('startButton2');
+    startButton1.addEventListener('click', function() {
         // 使用postMessage通知父页面跳转到play.html
         window.parent.hidePlayPage();
     });
+
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const videoElement = document.querySelector('.you_video');
+        const videoSource = videoElement.querySelector('source');
+
+        // 从 Cookie 中读取视频 URL
+        const videoURL = getCookie('recordedVideo');
+
+        if (videoURL) {
+            videoSource.src = decodeURIComponent(videoURL);
+            videoElement.load(); // 重要：更新视频元素以加载新的源
+        } else {
+            console.log('没有找到录制的视频URL');
+        }
+    });
+
+    // 辅助函数：从 Cookie 中读取特定名称的值
+    function getCookie(name) {
+        let nameEQ = name + "=";
+        let ca = document.cookie.split(';');
+        for(let i=0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+</script>
+
 </body>
 </html>
