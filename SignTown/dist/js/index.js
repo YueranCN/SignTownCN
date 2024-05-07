@@ -44,6 +44,7 @@ function changeBackground() {
             app.style.opacity = 1;
             document.getElementById('container').style.opacity = 1;
             document.getElementById('title').style.opacity = 1;
+            document.getElementById('bor').style.opacity = 1;
         }, 500);
     }, 500);
 }
