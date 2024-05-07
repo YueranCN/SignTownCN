@@ -4,137 +4,23 @@
     <meta charset="UTF-8">
     <title>手语村</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <style>
-        /* 重置样式 */
-        body, html {
-            margin: 0;
-            padding: 0;
-            overflow: hidden; /* 防止滚动 */
-            height: 100vh; /* 全视窗高度 */
-            background-image: linear-gradient(to right, #eccdb1, #dbbe94);
-        }
-        /* 背景遮罩 */
-        .modal-backdrop {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1;
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-        /* 模态框样式 */
-        .modal {
-            width: 74%;
-            height: 74%;
-            display: none;
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%) scale(0.5); /* 初始缩放 */
-            background: white;
-            z-index: 2;
-            transition: transform 0.5s, opacity 0.5s; /* 动画效果 */
-            opacity: 0;
-            border-radius: 40px;
-            border: black 5px solid;
-        }
-        /* 模态框内的按钮样式 */
-        .close-btn {
-            position: absolute;
-            width: 4vw;
-            height: 4vw;
-            max-width: 80px;
-            max-height: 80px;
-            top: 2vw;
-            right: 1vw;
-            float: right;
-            cursor: pointer;
-            z-index: 3;
-        }
-        /* 模态框内的 iframe 样式 */
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* 图片样式 */
-        .chang-1 {
-            position: absolute;
-            width: 80%;
-            height: auto;
-            top: 46%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .peo-1 {
-            position: absolute;
-            width: 6%;
-            height: auto;
-            top: 36%;
-            left: 42%;
-        }
-        .map-1 {
-            position: absolute;
-            width: 6%;
-            height: auto;
-            top: 48%;
-            left: 34%;
-        }
-        .map-2 {
-            position: absolute;
-            width: 6%;
-            height: auto;
-            top: 72%;
-            left: 50%;
-        }
-        /* 图片正常状态样式 */
-        .map-1, .map-2 {
-            transition: transform 0.3s ease; /* 平滑过渡效果 */
-        }
-
-        /* 图片被点击时的放大效果 */
-        .map-1:hover, .map-2:hover {
-            transform: scale(1.5); /* 放大到120%的大小 */
-        }
-
-        /* 添加全局渐入动画 */
-        body {
-            animation: fadeIn 4s ease-out 0s 1; /* 动画名称，持续时间，缓动函数，延迟时间，播放次数 */
-        }
-
-        /* 定义渐入动画 */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
         .no-1 {
             position: absolute;
             width: 3%;
             height: auto;
-            top: 70.5%;
-            left: 50.5%;
+            top: 58%;
+            left: 74%;
         }
         .no-2 {
             position: absolute;
             width: 3%;
             height: auto;
-            top: 62%;
-            left: 48.5%;
+            top: 64%;
+            left: 70%;
         }
 
-        #noteImage, #no2Image{
-            transition: transform 0.3s ease; /* 平滑的放大效果 */
-        }
-
-        #noteImage:hover, #no2Image:hover{
-            transform: scale(1.5); /* 鼠标悬停时放大图片 */
-        }
 
         .biao-1 {
             position: absolute;
@@ -172,6 +58,11 @@
     <p>&nbsp;学习手语</p>
 </div>
 
+<img src="../images/notes1_hover.png" class="no-1" alt="" id="noteImage">
+<img src="../images/notes2_hover.png" class="no-2" alt="" id="no2Image">
+
+<img src="../video/biaoqian1.jpg" class="biao-1" alt="" id="img4">
+<img src="../video/biaoqian2.jpg" class="biao-2" alt="" id="img5">
 
 <!-- 触发模态框的按钮 -->
 <!--<button id="openModal">打开模态框</button>-->
