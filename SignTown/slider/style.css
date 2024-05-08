@@ -56,15 +56,37 @@ html, body {
 }
 
 .prev {
-    left: 10px;
-    border-radius: 0 3px 3px 0;
+    position: absolute;
+    width: 8vw;
+    height: 8vw;
+    max-width: 160px;
+    max-height: 160px;
+    left: 4vw;
+    top: 50vh;
+    transform: translateY(-50%);
+    z-index: 1000;
+    border: none;             /* 去除边框 */
+    background-color: transparent; /* 背景透明 */
+    cursor: pointer;          /* 鼠标悬停时显示手形图标 */
+    transition: transform 0.3s ease; /* 平滑的变换效果 */
 }
 
 .next {
-    right: 10px;
-    border-radius: 3px 0 0 3px;
+    position: absolute;
+    width: 8vw;
+    height: 8vw;
+    right: 4vw;
+    max-width: 160px;
+    max-height: 160px;
+    top: 50vh;
+    transform: translateY(-50%);
+    z-index: 1000;
+    border: none;             /* 去除边框 */
+    background-color: transparent; /* 背景透明 */
+    cursor: pointer;          /* 鼠标悬停时显示手形图标 */
+    transition: transform 0.3s ease; /* 平滑的变换效果 */
 }
 
 .prev:hover, .next:hover {
-    background-color: rgba(0,0,0,0.8);
+    transform: translateY(-50%) scale(1.5);
 }

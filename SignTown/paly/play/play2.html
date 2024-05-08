@@ -67,9 +67,6 @@
 <img src="../images/notes1_hover.png" class="no-1" alt="" id="noteImage">
 <img src="../images/notes2_hover.png" class="no-2" alt="" id="no2Image">
 
-<img src="../video/biaoqian1.jpg" class="biao-1" alt="" id="img4">
-<img src="../video/biaoqian2.jpg" class="biao-2" alt="" id="img5">
-
 <!-- 左右切换按钮 -->
 <button class="button-left" onclick="location.href='play1.html';">
     <svg width="50" height="50" viewBox="0 0 12 21" fill="none" xmlns="http://www.w3.org/2000/svg" transform="scale(-1, 1) translate(-12, 0)">
@@ -96,108 +93,22 @@
     </span>
 </div>
 
-<script>
-    // 获取元素
-    var modal = document.getElementById("modal");
-    var openBtn = document.getElementById("openModal");
-    var closeBtn = document.getElementById("closeModal");
-    var backdrop = document.getElementById("backdrop");
-
-    // 打开模态框
-    openBtn.onclick = function() {
-        modal.style.display = "block";
-        backdrop.style.display = "block";
-        setTimeout(function() { // 延时以应用动画
-            modal.style.transform = "translate(-50%, -50%) scale(1)"; // 放大至原始尺寸
-            modal.style.opacity = "1";
-            backdrop.style.opacity = "1";
-        }, 10);
-    }
-
-    // 关闭模态框
-    closeBtn.onclick = function() {
-        modal.style.transform = "translate(-50%, -50%) scale(0.5)"; // 缩小
-        modal.style.opacity = "0";
-        backdrop.style.opacity = "0";
-        setTimeout(function() { // 延时以隐藏元素
-            modal.style.display = "none";
-            backdrop.style.display = "none";
-        }, 500); // 与动画时间相匹配
-    }
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const image = document.querySelector('.peo-1'); // 获取图片元素
-        let currentSrc = 'people2';
-
-        setInterval(() => {
-            if (currentSrc === 'people2') {
-                image.src = '../images/people3.png'; // 更改图片源
-                currentSrc = 'people3';
-            } else {
-                image.src = '../images/people2.png'; // 更改图片源回原图
-                currentSrc = 'people2';
-            }
-        }, 500); // 每500毫秒切换一次
-    });
-
-    var backModal = document.getElementById('backModal');
-    backModal.onclick = function() {
-        window.location.href = '../indexk.html';
-    };
-    document.getElementById('noteImage').addEventListener('mouseover', function() {
-        this.src = '../images/notes1_hover.png'; // 鼠标悬停时更改图片
-    });
-
-    document.getElementById('noteImage').addEventListener('mouseout', function() {
-        this.src = '../images/notes1.png'; // 鼠标移开时恢复原始图片
-    });
-
-    document.getElementById('no2Image').addEventListener('mouseover', function() {
-        this.src = '../images/notes2_hover.png'; // 鼠标悬停时更改图片
-    });
-
-    document.getElementById('no2Image').addEventListener('mouseout', function() {
-        this.src = '../images/notes2.png'; // 鼠标移开时恢复原始图片
-    });
-
-
-    // 设置初始透明度
-    document.getElementById('img4').style.opacity = "0";
-    document.getElementById('img5').style.opacity = "0";
-
-    // 监听noteImage的点击事件，增加透明度
-    document.getElementById('noteImage').addEventListener('click', function(event) {
-        var img = document.getElementById('img4');
-        img.style.opacity = "1"; // 设置为半透明
-        event.stopPropagation(); // 阻止事件冒泡到document
-    });
-
-    // 监听整个文档的点击事件，用于恢复透明度
-    document.addEventListener('click', function(event) {
-        var img = document.getElementById('img4');
-        // 检查点击是否发生在img4图片本身
-        if (event.target !== img) {
-            img.style.opacity = "0"; // 恢复透明度为完全透明
-        }
-    });
-
-    // 监听no2Image的点击事件，增加透明度
-    document.getElementById('no2Image').addEventListener('click', function(event) {
-        var img = document.getElementById('img5');
-        img.style.opacity = "1"; // 设置为半透明
-        event.stopPropagation(); // 阻止事件冒泡到document
-    });
-
-    // 监听整个文档的点击事件，用于恢复透明度
-    document.addEventListener('click', function(event) {
-        var img = document.getElementById('img5');
-        // 检查点击是否发生在img5图片本身
-        if (event.target !== img) {
-            img.style.opacity = "0"; // 恢复透明度为完全透明
-        }
-    });
-
-</script>
+<div class="modal" id="modal2">
+    <iframe src="../../slider.html"></iframe>
+    <span class="close-btn" id="closeModal2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path d="M2.293 2.293a1 1 0 0 1 1.414 0L8 6.586l4.293-4.293a1 1 0 1 1 1.414 1.414L9.414 8l4.293 4.293a1 1 0 0 1-1.414 1.414L8 9.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L6.586 8 2.293 3.707a1 1 0 0 1 0-1.414z"/>
+        </svg>
+    </span>
+</div>
+<div class="modal" id="modal3">
+    <iframe src="../../slider1.html"></iframe>
+    <span class="close-btn" id="closeModal3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path d="M2.293 2.293a1 1 0 0 1 1.414 0L8 6.586l4.293-4.293a1 1 0 1 1 1.414 1.414L9.414 8l4.293 4.293a1 1 0 0 1-1.414 1.414L8 9.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L6.586 8 2.293 3.707a1 1 0 0 1 0-1.414z"/>
+        </svg>
+    </span>
+</div>
+<script src="script.js"></script>
 </body>
 </html>
