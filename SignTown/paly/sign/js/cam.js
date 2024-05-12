@@ -96,9 +96,8 @@ function startRecording() {
                     method: 'POST',
                     body: formData
                 })
-                    .then(response => response.json()) // 假设服务器返回的是JSON格式的响应
+                    .then(response => response.json())
                     .then(data => {
-                        // 提取服务器响应中的 'response' 字段
                         const fruit = data.response;
                         // 要进行对比的字符串
                         const storedParam1 = sessionStorage.getItem('param1');
@@ -116,11 +115,9 @@ function startRecording() {
                         }
 
                         if (matchFound) {
-                            sessionStorage.setItem('matchedFruit', matchedParam);
-                            window.parent.postMessage({ type: 'navigate', direction: 'next' }, '*');
+
                         } else {
-                            window.parent.postMessage({ type: 'navigate', direction: 'next' }, '*');
-                            window.parent.postMessage({ type: 'navigate', direction: 'next' }, '*');
+
                         }
                     })
                     .catch(error => {

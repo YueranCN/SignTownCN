@@ -1,0 +1,92 @@
+/* slider-styles.css */
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* 禁用滚动条 */
+    height: 100%; /* 使用百分比确保充满iframe */
+    width: 100%;  /* 使用百分比确保充满iframe */
+}
+
+.slider {
+    position: relative;
+    width: 100%;  /* 宽度100% */
+    height: 100%; /* 高度100% */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%; /* 宽度100% */
+    height: 100%; /* 高度100% */
+}
+
+.slide {
+    flex-shrink: 0;
+    width: 100%; /* 宽度100% */
+    height: 100%; /* 高度100% */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slide img {
+    height: 100%;  /* 图片高度顶满 */
+    width: auto;   /* 宽度自适应 */
+    display: block;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 3px;
+    user-select: none;
+    z-index: 10;
+}
+
+.prev {
+    position: absolute;
+    width: 8vw;
+    height: 8vw;
+    max-width: 160px;
+    max-height: 160px;
+    left: 4vw;
+    top: 50vh;
+    transform: translateY(-50%);
+    z-index: 1000;
+    border: none;             /* 去除边框 */
+    background-color: transparent; /* 背景透明 */
+    cursor: pointer;          /* 鼠标悬停时显示手形图标 */
+    transition: transform 0.3s ease; /* 平滑的变换效果 */
+}
+
+.next {
+    position: absolute;
+    width: 8vw;
+    height: 8vw;
+    right: 4vw;
+    max-width: 160px;
+    max-height: 160px;
+    top: 50vh;
+    transform: translateY(-50%);
+    z-index: 1000;
+    border: none;             /* 去除边框 */
+    background-color: transparent; /* 背景透明 */
+    cursor: pointer;          /* 鼠标悬停时显示手形图标 */
+    transition: transform 0.3s ease; /* 平滑的变换效果 */
+}
+
+.prev:hover, .next:hover {
+    transform: translateY(-50%) scale(1.5);
+}

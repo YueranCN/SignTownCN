@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cam Page</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
+</head>
+<body>
+<div id="info">Loading...</div>
+<video id="videoElement" autoplay playsinline></video>
+<button id="returnButton">返回</button>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 模拟从文件或服务器获取的数据
+        var dataMapping = {
+            "page1-1": {
+                title: "任务一",
+                description: "完成任务一的相关操作。",
+            },
+            "page1-2": {
+                title: "任务二",
+                description: "完成任务二的相关操作。",
+            },
+            "page1-3": {
+                title: "任务三",
+                description: "完成任务三的相关操作。",
+            },
+            "page1-5": {
+                title: "任务五",
+                description: "注意：跳过了任务四。",
+            }
+        };
+
+        // 解析 URL 参数
+        var params = new URLSearchParams(window.location.search);
+        var returnUrl = params.get('returnUrl');
+        var sourceId = params.get('sourceId');
+
+        // 对返回的 URL 进行解码
+        returnUrl = decodeURIComponent(returnUrl);
+
+        // 显示获取的参数
+        var data = dataMapping[sourceId] || {title: "未知任务", description: "没有找到相关信息。"};
+        document.getElementById('info').innerHTML =
+            '任务标题: ' + data.title + '<br>' +
+            '任务描述: ' + data.description;
+
+        // 获取返回按钮并设置其点击事件
+        var returnButton = document.getElementById('returnButton');
+        returnButton.onclick = function() {
+            window.location.href = returnUrl;
+        };
+
+        // 获取视频元素
+        var videoElement = document.getElementById('videoElement');
+
+        // 定义媒体约束，这里仅请求视频（不请求音频）
+        var constraints = {
+            video: true,
+            audio: false
+        };
+
+        // 调用用户媒体设备获取视频流
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(function(mediaStream) {
+                // 将媒体流绑定到video元素上
+                videoElement.srcObject = mediaStream;
+                videoElement.onloadedmetadata = function(e) {
+                    videoElement.play();
+                };
+            })
+            .catch(function(err) {
+                console.error('获取视频流失败:', err);
+                document.getElementById('info').innerHTML += '<br>错误: 无法访问摄像头。';
+            });
+    });
+</script>
+</body>
+</html>

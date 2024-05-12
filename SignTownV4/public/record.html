@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>录制视频</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    #videoElement {
+      width: 100%;
+      height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: 3px solid black;
+      border-radius: 36px;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .status {
+      font-size: 1.5em;
+      margin-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+<div id="status" class="status">加载中...</div>
+<video id="videoElement" width="720" height="560" autoplay playsinline></video>
+
+<script>
+  document.addEventListener('DOMContentLoaded', async function() {
+    const videoElement = document.getElementById('videoElement');
+    const statusDiv = document.getElementById('status');
+
+    // 开启摄像头
+    async function setupCamera() {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        statusDiv.innerHTML = '浏览器不支持摄像头';
+        throw new Error('浏览器不支持摄像头');
+      }
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      videoElement.srcObject = stream;
+      return new Promise(resolve => {
+        videoElement.onloadedmetadata = () => resolve(videoElement);
+      });
+    }
+
+    await setupCamera();
+    videoElement.play();
+
+    // 显示倒计时
+    async function countdown(seconds) {
+      for (let i = seconds; i > 0; i--) {
+        statusDiv.innerHTML = `准备录制 ${i}...`;
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      }
+    }
+
+    // 录制视频
+    async function recordVideo(duration) {
+      let recorder = new MediaRecorder(videoElement.srcObject);
+      let data = [];
+
+      recorder.ondataavailable = event => data.push(event.data);
+      recorder.start();
+
+      await new Promise(resolve => setTimeout(resolve, duration));
+      recorder.stop();
+
+      return new Promise(resolve => {
+        recorder.onstop = () => resolve(new Blob(data, { type: 'video/webm' }));
+      });
+    }
+
+    // 开始录制流程
+    async function startRecordingProcess() {
+      await countdown(2);  // 倒计时 2 秒
+
+      statusDiv.innerHTML = '正在录制...';
+      let recordedBlob = await recordVideo(3000);  // 录制 3 秒
+
+      statusDiv.innerHTML = '手语判断中...';
+
+      let formData = new FormData();
+      formData.append('file', recordedBlob);
+
+      // 使用 fetch API 发送 POST 请求
+      fetch('http://8.140.206.78:5100/upload/', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          const fruit = data.response;
+          // 要进行对比的字符串
+          const storedParam1 = sessionStorage.getItem('param1');
+          const storedParam2 = sessionStorage.getItem('param2');
+
+          let matchFound = false;
+          let matchedParam = '';
+
+          if (fruit === storedParam1) {
+            matchFound = true;
+            matchedParam = storedParam1;
+          } else if (fruit === storedParam2) {
+            matchFound = true;
+            matchedParam = storedParam2;
+          }
+
+          if (matchFound) {
+            sessionStorage.setItem('matchedFruit', matchedParam);
+            statusDiv.innerHTML = '匹配成功，即将跳转...';
+            window.location.href = 'correct-page.html';
+          } else {
+            statusDiv.innerHTML = '匹配失败，即将跳转...';
+            window.location.href = 'error-page.html';
+          }
+        })
+        .catch(error => {
+          console.error('上传失败:', error);
+          statusDiv.innerHTML = '上传失败，请重试';
+        });
+    }
+
+    // 启动录制流程
+    startRecordingProcess();
+  });
+</script>
+</body>
+</html>

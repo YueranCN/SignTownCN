@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>轮播图风格的网页框架</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .carousel {
+            display: flex;
+            flex-direction: row;
+            width: 500%;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .page {
+            width: 20%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .content {
+            position: relative;
+            width: 80%;
+            height: 100%;
+            display: flex;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+            border: none;
+        }
+
+        /* 设置按钮样式 */
+        .button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        /* 左侧按钮位置 */
+        .button.left {
+            left: 10px;
+        }
+
+        /* 右侧按钮位置 */
+        .button.right {
+            right: 10px;
+        }
+
+        .video-1, .video-2 {
+            width: 76%;
+            margin: 0 120px;
+            border: black 3px solid;
+            border-radius: 36px;
+        }
+
+        .img-1, .img-2 {
+            width: 20%;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            margin: 10px;
+        }
+
+        .block {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 60%;
+            font-size: 1.5em;
+        }
+
+        .btn {
+            width: 240px;
+            height: 80px;
+            margin: 40px 0 60px 0;
+            border-radius: 40px;
+            background-color: rgb(43, 80, 161);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: '思源黑体', sans-serif;
+            font-size: 26px;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: rgb(78, 110, 242);
+        }
+        .btn:disabled {
+            background-color: rgb(119, 126, 140);
+            cursor: not-allowed;
+        }
+        h1 {
+            font-size: 2em;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+<div class="carousel">
+    <!-- 页面 1 -->
+    <div class="page">
+        <div class="content">
+            <h1>早上好，你想吃什么？</h1>
+        </div>
+        <div class="content">
+            <div class="column">
+                <div class="block">
+                    <h3 class="h-1">粥</h3>
+                    <img src="sign-1/icons/zhou.png" class="img-1" alt="zhou">
+                </div>
+                <video src="sign-1/video/zhou.mp4" class="video-1" autoplay loop muted></video>
+            </div>
+            <div class="column">
+                <div class="block">
+                    <h3 class="h-2">包子</h3>
+                    <img src="sign-1/icons/bz.png" class="img-2" alt="baozi">
+                </div>
+                <video src="sign-1/video/bz.mp4" class="video-2" autoplay loop muted></video>
+            </div>
+        </div>
+        <div class="content">
+            <button onclick="showPlayPage('粥,苹果')" class="btn">开始学习</button>
+        </div>
+    </div>
+
+    <!-- 页面 2 -->
+    <div class="page">
+        <div class="content">内容 2-1</div>
+        <div class="content">内容 2-2</div>
+        <div class="content">内容 2-3</div>
+        <div class="content">内容 2-4</div>
+    </div>
+
+    <!-- 页面 3 -->
+    <div class="page">
+        <div class="content">内容 3-1</div>
+        <div class="content">内容 3-2</div>
+        <div class="content">内容 3-3</div>
+        <div class="content">内容 3-4</div>
+    </div>
+
+    <!-- 页面 4 -->
+    <div class="page">
+        <div class="content">内容 4-1</div>
+        <div class="content">内容 4-2</div>
+        <div class="content">内容 4-3</div>
+        <div class="content">内容 4-4</div>
+    </div>
+
+    <!-- 页面 5 -->
+    <div class="page">
+        <div class="content">内容 5-1</div>
+        <div class="content">内容 5-2</div>
+        <div class="content">内容 5-3</div>
+        <div class="content">内容 5-4</div>
+    </div>
+</div>
+
+<!-- 切换按钮 -->
+<button class="button left" onclick="moveToPage(currentIndex - 1)">←</button>
+<button class="button right" onclick="moveToPage(currentIndex + 1)">→</button>
+
+<script>
+    let currentIndex = 0;
+    const totalPages = document.querySelectorAll('.page').length;
+
+    function moveToPage(index) {
+        const carousel = document.querySelector('.carousel');
+        if (index >= 0 && index < totalPages) {
+            const offset = -index * (100 / totalPages);
+            carousel.style.transform = `translateX(${offset}%)`;
+            currentIndex = index;
+        }
+    }
+</script>
+</body>
+</html>
