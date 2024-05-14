@@ -14,21 +14,6 @@
             font-family: Arial, sans-serif;
         }
 
-        #loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: white;
-            border-radius: 48px;
-            z-index: 1000;
-            font-size: 2em;
-        }
-
         .carousel {
             display: flex;
             flex-direction: row;
@@ -145,8 +130,6 @@
     </style>
 </head>
 <body>
-
-<div id="loading">加载中...</div>
 
 <div class="carousel">
     <!-- 页面 1 -->
@@ -293,67 +276,6 @@
     <svg t="1715310820315" class="icon" style="width: 50%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1471" width="200" height="200"><path d="M371.498667 873.109333l-60.330667-60.330666 301.696-301.717334L311.168 209.365333l60.330667-60.330666L703.36 480.896l-30.165333 30.165333 30.165333-30.165333 30.186667 30.165333-362.026667 362.026667z" p-id="1472"></path></svg>
 </button>
 
-<script>
-    // 预加载视频和图片资源
-    function preloadAssets() {
-        const assets = [
-            'sign-3/video/sfz_1.mp4',
-            'sign-3/video/cjrs_1.mp4',
-            'sign-3/video/gg_1.mp4',
-            'sign-3/video/cc_1.mp4',
-            'sign-3/video/tsg_1.mp4',
-            'sign-3/video/bwg_1.mp4',
-            'sign-3/video/hz_1.mp4',
-            'sign-3/video/xl_1.mp4',
-            'sign-3/video/gy_1.mp4',
-            'sign-3/video/bg_1.mp4',
-            'sign-3/icons/sfz.png',
-            'sign-3/icons/cjrs.png',
-            'sign-3/icons/gg.png',
-            'sign-3/icons/cc.png',
-            'sign-3/icons/tsg.png',
-            'sign-3/icons/bwg.png',
-            'sign-3/icons/hz.png',
-            'sign-3/icons/xl.png',
-            'sign-3/icons/gy.png',
-            'sign-3/icons/bg.png'
-        ];
-
-        let loadedCount = 0;
-        const totalAssets = assets.length;
-
-        function onAssetLoad() {
-            loadedCount++;
-            console.log(`Loaded ${loadedCount} of ${totalAssets}`);
-            if (loadedCount === totalAssets) {
-                console.log('All assets preloaded');
-                document.getElementById('loading').style.display = 'none';
-            }
-        }
-
-        assets.forEach(asset => {
-            let element;
-            if (asset.endsWith('.mp4')) {
-                element = document.createElement('video');
-                element.src = asset;
-                element.preload = 'auto';
-                element.onloadeddata = onAssetLoad;
-                element.onerror = onAssetLoad;
-            } else if (asset.endsWith('.png')) {
-                element = document.createElement('img');
-                element.src = asset;
-                element.onload = onAssetLoad;
-                element.onerror = onAssetLoad;
-            }
-
-            element.style.position = 'absolute';
-            element.style.left = '-9999px';
-            document.body.appendChild(element);
-        });
-    }
-
-    document.addEventListener('DOMContentLoaded', preloadAssets);
-</script>
 <script>
     let currentIndex = 0;
     const totalPages = document.querySelectorAll('.page').length;

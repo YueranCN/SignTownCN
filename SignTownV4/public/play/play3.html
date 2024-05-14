@@ -13,6 +13,21 @@
             background-image: linear-gradient(to right, #eccdb1, #dbbe94);
         }
 
+        #loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            border-radius: 48px;
+            z-index: 1000;
+            font-size: 2em;
+        }
+
         .modal-backdrop {
             display: none;
             position: fixed;
@@ -114,6 +129,8 @@
 </head>
 <body>
 
+<div id="loading">加载中...</div>
+
 <img src="../images/play/map-3.png" class="chang-1" alt="chang">
 <div class="map-1" id="backModal">
     <p>返回手语村</p>
@@ -165,6 +182,67 @@
 </div>
 
 <script>
+    // 预加载视频和图片资源
+    function preloadAssets() {
+        const assets = [
+            'sign-3/video/sfz_1.mp4',
+            'sign-3/video/cjrs_1.mp4',
+            'sign-3/video/gg_1.mp4',
+            'sign-3/video/cc_1.mp4',
+            'sign-3/video/tsg_1.mp4',
+            'sign-3/video/bwg_1.mp4',
+            'sign-3/video/hz_1.mp4',
+            'sign-3/video/xl_1.mp4',
+            'sign-3/video/gy_1.mp4',
+            'sign-3/video/bg_1.mp4',
+            'sign-3/icons/sfz.png',
+            'sign-3/icons/cjrs.png',
+            'sign-3/icons/gg.png',
+            'sign-3/icons/cc.png',
+            'sign-3/icons/tsg.png',
+            'sign-3/icons/bwg.png',
+            'sign-3/icons/hz.png',
+            'sign-3/icons/xl.png',
+            'sign-3/icons/gy.png',
+            'sign-3/icons/bg.png'
+        ];
+
+        let loadedCount = 0;
+        const totalAssets = assets.length;
+
+        function onAssetLoad() {
+            loadedCount++;
+            console.log(`Loaded ${loadedCount} of ${totalAssets}`);
+            if (loadedCount === totalAssets) {
+                console.log('All assets preloaded');
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+
+        assets.forEach(asset => {
+            let element;
+            if (asset.endsWith('.mp4')) {
+                element = document.createElement('video');
+                element.src = asset;
+                element.preload = 'auto';
+                element.onloadeddata = onAssetLoad;
+                element.onerror = onAssetLoad;
+            } else if (asset.endsWith('.png')) {
+                element = document.createElement('img');
+                element.src = asset;
+                element.onload = onAssetLoad;
+                element.onerror = onAssetLoad;
+            }
+
+            element.style.position = 'absolute';
+            element.style.left = '-9999px';
+            document.body.appendChild(element);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', preloadAssets);
+</script>
+<script>
     // 功能函数：打开指定的模态框
     function openModal(modalElement) {
         modalElement.style.display = "block";
@@ -213,7 +291,7 @@
 
     // 返回手语村
     backModal.onclick = function() {
-        window.location.href = 'index.html';
+        window.location.href = '../index.html';
     };
 </script>
 </body>

@@ -13,6 +13,21 @@
             background-image: linear-gradient(to right, #eccdb1, #dbbe94);
         }
 
+        #loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            border-radius: 48px;
+            z-index: 1000;
+            font-size: 2em;
+        }
+
         .modal-backdrop {
             display: none;
             position: fixed;
@@ -114,6 +129,8 @@
 </head>
 <body>
 
+<div id="loading">加载中...</div>
+
 <img src="../images/play/map-2.png" class="chang-1" alt="chang">
 <div class="map-1" id="backModal">
     <p>返回手语村</p>
@@ -164,6 +181,65 @@
     </span>
 </div>
 
+<script>
+    // 预加载视频和图片资源
+    function preloadAssets() {
+        const assets = [
+            'sign-2/video/fj_1.mp4',
+            'sign-2/video/gt_1.mp4',
+            'sign-2/video/czc_1.mp4',
+            'sign-2/video/zxc_1.mp4',
+            'sign-2/video/dt_1.mp4',
+            'sign-2/video/gjc_1.mp4',
+            'sign-2/video/gt1_1.mp4',
+            'sign-2/video/cflc_1.mp4',
+            'sign-2/video/zxc_1.mp4',
+            'sign-2/video/sb_1.mp4',
+            'sign-2/icons/fj.png',
+            'sign-2/icons/gt.png',
+            'sign-2/icons/czc.png',
+            'sign-2/icons/dt.png',
+            'sign-2/icons/gjc.png',
+            'sign-2/icons/cflc.png',
+            'sign-2/icons/zxc.png',
+            'sign-2/icons/sb.png'
+        ];
+
+        let loadedCount = 0;
+        const totalAssets = assets.length;
+
+        function onAssetLoad() {
+            loadedCount++;
+            console.log(`Loaded ${loadedCount} of ${totalAssets}`);
+            if (loadedCount === totalAssets) {
+                console.log('All assets preloaded');
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+
+        assets.forEach(asset => {
+            let element;
+            if (asset.endsWith('.mp4')) {
+                element = document.createElement('video');
+                element.src = asset;
+                element.preload = 'auto';
+                element.onloadeddata = onAssetLoad;
+                element.onerror = onAssetLoad;
+            } else if (asset.endsWith('.png')) {
+                element = document.createElement('img');
+                element.src = asset;
+                element.onload = onAssetLoad;
+                element.onerror = onAssetLoad;
+            }
+
+            element.style.position = 'absolute';
+            element.style.left = '-9999px';
+            document.body.appendChild(element);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', preloadAssets);
+</script>
 <script>
     // 功能函数：打开指定的模态框
     function openModal(modalElement) {
