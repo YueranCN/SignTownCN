@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/page3.css">
+    <title>手语村</title>
+</head>
+<body>
+
+<!-- 状态消息显示区域 -->
+<div id="statusMessage" class="status-message">准备好后点击开始录制</div>
+
+<!-- 录制按钮 -->
+<button class="btn btn-go" id="startButton" onclick="toggleRecording()">开始录制</button>
+
+<!-- 视频区域 -->
+<div class="jumbotron">
+    <video class="input_video"></video>
+    <canvas class="output_canvas" width="1280" height="720" style="display: none"></canvas>
+    <div class="mark"></div>
+    <img src="../assets/goto/people.png" alt="边框">
+</div>
+
+<!-- MediaPipe 和摄像头脚本引入 -->
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/holistic/holistic.js" crossorigin="anonymous"></script>
+
+<!-- 视频脚本引入 -->
+<script type="module" src="js/cam.js"></script>
+</body>
+</html>

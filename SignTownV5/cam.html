@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cam Page - Adjusted Center Detection with Button</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tracking.js/1.1.3/tracking-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tracking.js/1.1.3/data/face-min.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #videoContainer {
+            width: 100%;
+            height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 3px solid black;
+            border-radius: 36px;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .status {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            width: 180px;
+            height: 60px;
+            border-radius: 40px;
+            background-color: rgb(43, 80, 161);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: '思源黑体', sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 40px;
+        }
+        .btn:hover {
+            background-color: rgb(78, 110, 242);
+        }
+        .btn:disabled {
+            background-color: rgb(119, 126, 140);
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+<div id="status" class="status">正在初始化摄像头...</div>
+<div id="videoContainer">
+    <video id="videoElement" autoplay playsinline></video>
+</div>
+<button id="proceedButton" class="btn" disabled>开始录制</button>
+
+<script>
+    document.addEventListener('DOMContentLoaded', async function() {
+        const videoElement = document.getElementById('videoElement');
+        const statusDiv = document.getElementById('status');
+        const proceedButton = document.getElementById('proceedButton');
+
+        // 开启摄像头
+        async function setupCamera() {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                statusDiv.innerHTML = '浏览器不支持摄像头';
+                throw new Error('浏览器不支持摄像头');
+            }
+            const stream = await navigator.mediaDevices.getUserMedia({ video: {} });
+            videoElement.srcObject = stream;
+            return new Promise(resolve => {
+                videoElement.onloadedmetadata = () => resolve(videoElement);
+            });
+        }
+
+        await setupCamera();
+        videoElement.play();
+        statusDiv.innerHTML = '摄像头启动成功，正在检测人脸位置...';
+
+        // 使用 tracking.js 检测人脸
+        const tracker = new tracking.ObjectTracker(['face']);
+        tracker.setInitialScale(4);
+        tracker.setStepSize(2);
+        tracker.setEdgesDensity(0);
+
+        tracking.track('#videoElement', tracker);
+
+        tracker.on('track', event => {
+            if (event.data.length === 0) {
+                statusDiv.innerHTML = '没有检测到人脸';
+                proceedButton.disabled = true; // 没有检测到人脸，禁用按钮
+            } else {
+                const rect = event.data[0];
+                const faceCenterX = rect.x + rect.width / 2;
+                const faceCenterY = rect.y + rect.height / 2;
+                const videoCenterX = videoElement.offsetWidth / 2;
+                const videoCenterY = videoElement.offsetHeight / 2;
+
+                const dx = Math.abs(faceCenterX - videoCenterX);
+                const dy = Math.abs(faceCenterY - videoCenterY);
+
+                const toleranceX = videoElement.offsetWidth * 0.2;
+                const toleranceY = videoElement.offsetHeight * 0.2;
+
+                if (dx < toleranceX && dy < toleranceY) {
+                    statusDiv.innerHTML = '<span>你的位置正确</span>';
+                    proceedButton.disabled = false; // 人脸在中心，启用按钮
+                    // window.location.href = 'record.html';
+                } else {
+                    statusDiv.innerHTML = '<span>请调整你的位置</span>';
+                    proceedButton.disabled = true; // 人脸不在中心，禁用按钮
+                }
+            }
+        });
+
+        proceedButton.addEventListener('click', function() {
+            window.location.href = 'record.html';
+        });
+    });
+</script>
+</body>
+</html>

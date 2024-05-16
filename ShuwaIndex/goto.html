@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dist/css/styles.css">
+    <link rel="stylesheet" href="dist/css/goto.css">
+    <title>手语村</title>
+    <style>
+        .tiao {
+            position: absolute;
+            bottom: 26%;
+            right: 14%;
+            border: none;          /* 取消边框 */
+            background: none;      /* 取消背景 */
+            font-size: 1.5em;      /* 增大文字 */
+            padding: 10px 20px;    /* 添加一些内边距，使点击区域更大 */
+            cursor: pointer;       /* 鼠标悬停时显示手型指针 */
+            color: inherit;        /* 继承文本颜色，或者你可以指定颜色 */
+            outline: none;         /* 取消焦点时的默认边框 */
+        }
+
+        .tiao:hover {
+            text-decoration: underline; /* 鼠标悬停时添加下划线 */
+        }
+
+
+    </style>
+</head>
+<body>
+
+<!-- 页面部分 -->
+<div id="app">
+    <div class="jumbotron"></div>
+    <iframe src="sign/page1.html" id="iframe-container"></iframe>
+</div>
+<div class="mark"></div>
+
+
+<!-- 指导部分 -->
+<div class="left">
+    <p>
+        <img src="assets/index/cam.png" alt="相机" width="32px" height="32px">
+        &nbsp;请看镜头，调整位置
+    </p>
+    <p>
+        <img src="assets/index/peo.png" alt="人像" width="32px" height="32px">
+        &nbsp;录制你自己的手语
+    </p>
+    <p>
+        <img src="assets/index/ceshi.png" alt="测试" width="32px" height="32px">
+        &nbsp;人工智能会测定你的表现
+    </p>
+</div>
+
+<button class="tiao" onclick="window.location.href='../public/index.html';">
+    跳过教学
+</button>
+
+<script src="dist/js/goto.js"></script>
+</body>
+</html>

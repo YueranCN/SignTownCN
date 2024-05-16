@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/page2.css">
+    <title>手语村</title>
+</head>
+<body>
+
+<!-- 状态消息显示区域 -->
+<div id="statusMessage" class="status-message">现在请试试这个手语</div>
+
+<!-- 按钮区域 -->
+<button class="btn btn-go" id="nextButton" onclick="navigate('next')">准备好了</button>
+
+<!-- 视频区域 -->
+<div class="jumbotron">
+    <video autoplay loop muted class="input_video">
+        <source src="../assets/video/Apple.mp4" type="video/mp4">
+        抱歉，您的浏览器不支持内嵌视频。
+    </video>
+    <div class="mark"></div>
+    <!-- 图标与文本 -->
+    <img class="img-1" src="../assets/goto/apple.png" alt="苹果">
+    <p>苹果</p>
+</div>
+
+<!-- 引入脚本文件 -->
+<script src="js/common.js"></script>
+
+</body>
+</html>

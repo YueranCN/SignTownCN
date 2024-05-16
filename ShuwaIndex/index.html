@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dist/css/styles.css">
+    <link rel="stylesheet" href="dist/css/index.css">
+    <link rel="stylesheet" href="dist/css/loader.css">
+    <script src="dist/js/loader.js"></script>
+    <title>手语村</title>
+    <style>
+        .bor {
+            position: absolute;
+            width: 50vw;
+            height: 40vh;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 8px solid #bcc3d5;
+            border-radius: 40px;
+            opacity: 0;
+        }
+        .about {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            font-size: 1.5em;
+            color: black;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 加载指示器 -->
+<div id="loader" class="loader"></div>
+
+<!-- 页面部分 -->
+<div id="app">
+    <div class="bor" id="bor"></div>
+    <div id="container"></div>
+    <img src="assets/index/pic1.png" class="pic1" alt="小船">
+    <img src="assets/index/pic2-1.png" id="animatedImage" class="pic2" alt="飞鸟">
+    <img src="assets/index/title.png" class="title" alt="手语村" style="opacity: 0" id="title">
+    <button class="btn old-btn btn1" onclick="changeBackground()">
+        <img src="assets/index/home.png" alt="主页" width="32px" height="32px">
+        &nbsp手语村
+    </button>
+    <button class="btn old-btn btn2">
+        <img src="assets/index/book.png" alt="图书" width="32px" height="32px">
+        &nbsp词典手册
+    </button>
+    <button class="btn new-btn btn3" style="display:none;" onclick="window.location.href='goto.html';">
+        <img src="assets/index/xin.png" alt="爱心" width="32px" height="32px">
+        &nbsp开始
+    </button>
+</div>
+<a href="about.html" class="about">关于我们</a>
+<!-- 背景图部分 -->
+<script src="dist/js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+/**
+ * 样式表：加载器样式
+ * 创建日期：2024-04-27
+ * 作者：Frank Wang
+ */
+
+/* 加载器容器样式 */
+.loader {
+    position: fixed; /* 固定位置，使加载器始终位于视口内 */
+    top: 0; /* 距视口顶部0，覆盖整个视口 */
+    left: 0; /* 距视口左边0 */
+    right: 0; /* 距视口右边0 */
+    bottom: 0; /* 距视口底部0 */
+    background-color: rgba(255, 255, 255); /* 半透明白色背景 */
+    z-index: 1000; /* 高堆叠顺序确保加载器位于其他内容之上 */
+    display: flex; /* 使用弹性盒模型对内容进行布局 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+}
+
+/* 加载器图标样式 */
+.loader::before {
+    content: ''; /* 伪元素必需的内容属性，这里为空 */
+    border: 5px solid #f3f3f3; /* 边框为灰色 */
+    border-top: 5px solid rgb(43, 80, 161); /* 顶部边框为深蓝色，形成旋转效果 */
+    border-radius: 50%; /* 圆形边框 */
+    width: 50px; /* 图标宽度 */
+    height: 50px; /* 图标高度 */
+    animation: spin 1s linear infinite; /* 应用旋转动画 */
+}
+
+/* 旋转动画定义 */
+@keyframes spin {
+    0% { transform: rotate(0deg); } /* 动画开始时旋转角度为0 */
+    100% { transform: rotate(360deg); } /* 动画结束时旋转角度为360度 */
+}

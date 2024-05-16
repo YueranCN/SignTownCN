@@ -1,0 +1,58 @@
+/**
+ * 样式表：goto 页面样式
+ * 创建日期：2024-04-27
+ * 作者：Frank Wang
+ */
+
+#app {
+    position: absolute;      /* 绝对定位，可以灵活放置容器 */
+    right: 0;                /* 定位到窗口的右边 */
+    width: 68%;              /* 容器宽度为窗口宽度的60% */
+    height: 100%;            /* 容器高度充满整个视口高度 */
+    display: flex;           /* 使用弹性布局 */
+    flex-direction: column;  /* 子元素垂直排列 */
+    justify-content: center; /* 子元素在容器中垂直居中 */
+    align-items: center;     /* 子元素在容器中水平居中 */
+    background: rgb(240, 240, 240);     /* 轻微的背景色，可根据需要调整 */
+}
+.left {
+    position: absolute;      /* 绝对定位，可以灵活放置容器 */
+    left: 0;                 /* 定位到窗口的左边 */
+    width: 32%;              /* 容器宽度为窗口宽度的40% */
+    height: 100%;            /* 容器高度充满整个视口高度 */
+    display: flex;           /* 使用弹性布局 */
+    flex-direction: column;  /* 子元素垂直排列 */
+    justify-content: center; /* 子元素在容器中垂直居中 */
+    background: rgb(221, 221, 221);               /* 轻微的背景色，可根据需要调整 */
+    border-right: 5px solid rgb(51, 51, 51);      /* 右侧边框，可根据需要调整 */
+}
+p {
+    margin: 8vh 0;
+    color: rgb(0, 0, 0);
+    font-family: 思源黑体,sans-serif;
+    font-size: 20px;
+    padding-left: 8vw;
+    display: flex;
+    align-items: center;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+#iframe-container {
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1; /* 默认完全不透明 */
+}
+.jumbotron {
+    position: absolute;
+    width: 60%;
+    height: 0;
+    padding-top: 40%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: black 5px solid;
+    border-radius: 24px;
+}

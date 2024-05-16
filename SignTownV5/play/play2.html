@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>手语村</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100vh;
+            background-image: linear-gradient(to right, #eccdb1, #dbbe94);
+        }
+
+        #loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            border-radius: 48px;
+            z-index: 1000;
+            font-size: 2em;
+        }
+
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            width: 74%;
+            height: 74%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            background: white;
+            border: 5px solid black;
+            border-radius: 40px;
+            z-index: 2;
+            opacity: 0;
+            transition: transform 0.5s, opacity 0.5s;
+        }
+
+        .close-btn {
+            position: absolute;
+            width: 4vw;
+            height: 4vw;
+            max-width: 80px;
+            max-height: 80px;
+            top: 2vw;
+            right: 1vw;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .chang-1, .map-1, .map-2, .no-1, .no-2 {
+            position: absolute;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .chang-1 {
+            width: 80%; top: 46%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .map-1   { width: 6%;  top: 14%; left: 60%; }
+        .map-2   { width: 6%;  top: 72%; left: 66%; }
+        .no-1    { width: 4%;  top: 70%; left: 44%; }
+        .no-2    { width: 4%;  top: 70%; left: 38%; }
+
+        .map-1:hover, .map-2:hover { transform: scale(1.5); }
+
+        body { animation: fadeIn 4s ease-out 0s 1; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        @keyframes pulseScale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.5); }
+        }
+
+        .no-1, .no-2 { animation: pulseScale 2s ease-out infinite; }
+
+        .button-left, .button-right {
+            position: absolute;
+            width: 8vw;
+            height: 8vw;
+            max-width: 160px;
+            max-height: 160px;
+            top: 50vh;
+            transform: translateY(-50%);
+            z-index: 1000;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .button-left { left: 4vw; }
+        .button-right { right: 4vw; }
+
+        .button-right:hover, .button-left:hover { transform: translateY(-50%) scale(1.5); }
+    </style>
+</head>
+<body>
+
+<div id="loading">加载中...</div>
+
+<img src="../images/play/map-2.png" class="chang-1" alt="chang">
+<div class="map-1" id="backModal">
+    <p>返回手语村</p>
+    <img src="../images/play/map4.png" alt="img">
+</div>
+<div class="map-2" id="openModal">
+    <img src="../images/play/map5.png" alt="img">
+    <p>&nbsp;学习手语</p>
+</div>
+
+<img src="../images/play/notes1_hover.png" class="no-1" alt="" id="noteImage">
+<img src="../images/play/notes2_hover.png" class="no-2" alt="" id="no2Image">
+
+<button class="button-left" onclick="location.href='play1.html';">
+    <svg width="50" height="50" viewBox="0 0 12 21" fill="none" xmlns="http://www.w3.org/2000/svg" transform="scale(-1, 1) translate(-12, 0)">
+        <path id="path" d="M2.14 -0.28C2.07 -0.34 2.01 -0.39 1.93 -0.44C1.86 -0.49 1.78 -0.53 1.7 -0.56C1.62 -0.59 1.54 -0.62 1.46 -0.63C1.37 -0.65 1.28 -0.66 1.2 -0.66C1.11 -0.65 1.03 -0.65 0.94 -0.63C0.86 -0.61 0.77 -0.59 0.69 -0.55C0.61 -0.52 0.54 -0.48 0.47 -0.43C0.39 -0.38 0.33 -0.33 0.27 -0.26C0.21 -0.2 0.15 -0.14 0.1 -0.07C0.05 0.01 0.01 0.08 -0.02 0.16C-0.05 0.24 -0.08 0.32 -0.1 0.41C-0.11 0.49 -0.12 0.58 -0.12 0.67C-0.12 0.75 -0.12 0.84 -0.1 0.92C-0.08 1.01 -0.06 1.09 -0.03 1.17C0 1.25 0.04 1.33 0.09 1.4C0.14 1.47 0.19 1.54 0.25 1.6L8.74 10.09L0.25 18.58C0.19 18.64 0.13 18.7 0.08 18.78C0.03 18.85 -0.01 18.93 -0.05 19.01C-0.08 19.09 -0.11 19.17 -0.13 19.26C-0.15 19.35 -0.16 19.43 -0.16 19.52C-0.16 19.61 -0.15 19.7 -0.13 19.79C-0.12 19.87 -0.09 19.96 -0.06 20.04C-0.02 20.12 0.02 20.2 0.07 20.27C0.12 20.35 0.17 20.41 0.23 20.48C0.3 20.54 0.36 20.6 0.44 20.64C0.51 20.69 0.59 20.73 0.67 20.77C0.75 20.8 0.84 20.83 0.93 20.84C1.01 20.86 1.1 20.87 1.19 20.87C1.28 20.87 1.36 20.86 1.45 20.84C1.54 20.82 1.62 20.79 1.7 20.76C1.78 20.72 1.86 20.68 1.93 20.63C2.01 20.58 2.07 20.52 2.14 20.46L11.56 11.04L11.56 11.03C11.63 10.97 11.68 10.9 11.73 10.83C11.78 10.76 11.82 10.68 11.85 10.6C11.89 10.52 11.91 10.44 11.93 10.35C11.95 10.26 11.95 10.18 11.95 10.09C11.95 10 11.95 9.92 11.93 9.83C11.91 9.74 11.89 9.66 11.85 9.58C11.82 9.5 11.78 9.42 11.73 9.35C11.68 9.28 11.63 9.21 11.56 9.15L2.14 -0.28ZM2.14 -0.28L11.56 9.14L2.14 -0.28Z" fill="#000000" fill-opacity="1.000000" fill-rule="nonzero"/>
+    </svg>
+</button>
+<button class="button-right" onclick="location.href='play3.html';">
+    <svg width="50" height="50" viewBox="0 0 12 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path id="path" d="M2.14 -0.28C2.07 -0.34 2.01 -0.39 1.93 -0.44C1.86 -0.49 1.78 -0.53 1.7 -0.56C1.62 -0.59 1.54 -0.62 1.46 -0.63C1.37 -0.65 1.28 -0.66 1.2 -0.66C1.11 -0.65 1.03 -0.65 0.94 -0.63C0.86 -0.61 0.77 -0.59 0.69 -0.55C0.61 -0.52 0.54 -0.48 0.47 -0.43C0.39 -0.38 0.33 -0.33 0.27 -0.26C0.21 -0.2 0.15 -0.14 0.1 -0.07C0.05 0.01 0.01 0.08 -0.02 0.16C-0.05 0.24 -0.08 0.32 -0.1 0.41C-0.11 0.49 -0.12 0.58 -0.12 0.67C-0.12 0.75 -0.12 0.84 -0.1 0.92C-0.08 1.01 -0.06 1.09 -0.03 1.17C0 1.25 0.04 1.33 0.09 1.4C0.14 1.47 0.19 1.54 0.25 1.6L8.74 10.09L0.25 18.58C0.19 18.64 0.13 18.7 0.08 18.78C0.03 18.85 -0.01 18.93 -0.05 19.01C-0.08 19.09 -0.11 19.17 -0.13 19.26C-0.15 19.35 -0.16 19.43 -0.16 19.52C-0.16 19.61 -0.15 19.7 -0.13 19.79C-0.12 19.87 -0.09 19.96 -0.06 20.04C-0.02 20.12 0.02 20.2 0.07 20.27C0.12 20.35 0.17 20.41 0.23 20.48C0.3 20.54 0.36 20.6 0.44 20.64C0.51 20.69 0.59 20.73 0.67 20.77C0.75 20.8 0.84 20.83 0.93 20.84C1.01 20.86 1.1 20.87 1.19 20.87C1.28 20.87 1.36 20.86 1.45 20.84C1.54 20.82 1.62 20.79 1.7 20.76C1.78 20.72 1.86 20.68 1.93 20.63C2.01 20.58 2.07 20.52 2.14 20.46L11.56 11.04L11.56 11.03C11.63 10.97 11.68 10.9 11.73 10.83C11.78 10.76 11.82 10.68 11.85 10.6C11.89 10.52 11.91 10.44 11.93 10.35C11.95 10.26 11.95 10.18 11.95 10.09C11.95 10 11.95 9.92 11.93 9.83C11.91 9.74 11.89 9.66 11.85 9.58C11.82 9.5 11.78 9.42 11.73 9.35C11.68 9.28 11.63 9.21 11.56 9.15L2.14 -0.28ZM2.14 -0.28L11.56 9.14L2.14 -0.28Z" fill="#000000" fill-opacity="1.000000" fill-rule="nonzero"/>
+    </svg>
+</button>
+
+<div class="modal-backdrop" id="backdrop"></div>
+<div class="modal" id="modal">
+    <iframe src="../page/page2.html"></iframe>
+    <span class="close-btn" id="closeModal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path d="M2.293 2.293a1 1 0 0 1 1.414 0L8 6.586l4.293-4.293a1 1 0 1 1 1.414 1.414L9.414 8l4.293 4.293a1 1 0 0 1-1.414 1.414L8 9.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L6.586 8 2.293 3.707a1 1 0 0 1 0-1.414z"/>
+        </svg>
+    </span>
+</div>
+<div class="modal" id="modal2">
+    <iframe src="../slider/slider3.html"></iframe>
+    <span class="close-btn" id="closeModal2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path d="M2.293 2.293a1 1 0 0 1 1.414 0L8 6.586l4.293-4.293a1 1 0 1 1 1.414 1.414L9.414 8l4.293 4.293a1 1 0 0 1-1.414 1.414L8 9.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L6.586 8 2.293 3.707a1 1 0 0 1 0-1.414z"/>
+        </svg>
+    </span>
+</div>
+<div class="modal" id="modal3">
+    <iframe src="../slider/slider4.html"></iframe>
+    <span class="close-btn" id="closeModal3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path d="M2.293 2.293a1 1 0 0 1 1.414 0L8 6.586l4.293-4.293a1 1 0 1 1 1.414 1.414L9.414 8l4.293 4.293a1 1 0 0 1-1.414 1.414L8 9.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L6.586 8 2.293 3.707a1 1 0 0 1 0-1.414z"/>
+        </svg>
+    </span>
+</div>
+
+<script>
+    // 预加载视频和图片资源
+    function preloadAssets() {
+        const assets = [
+            'sign-2/video/fj_1.mp4',
+            'sign-2/video/gt_1.mp4',
+            'sign-2/video/czc_1.mp4',
+            'sign-2/video/zxc_1.mp4',
+            'sign-2/video/dt_1.mp4',
+            'sign-2/video/gjc_1.mp4',
+            'sign-2/video/gt1_1.mp4',
+            'sign-2/video/cflc_1.mp4',
+            'sign-2/video/zxc_1.mp4',
+            'sign-2/video/sb_1.mp4',
+            'sign-2/icons/fj.png',
+            'sign-2/icons/gt.png',
+            'sign-2/icons/czc.png',
+            'sign-2/icons/dt.png',
+            'sign-2/icons/gjc.png',
+            'sign-2/icons/cflc.png',
+            'sign-2/icons/zxc.png',
+            'sign-2/icons/sb.png'
+        ];
+
+        let loadedCount = 0;
+        const totalAssets = assets.length;
+
+        function onAssetLoad() {
+            loadedCount++;
+            console.log(`Loaded ${loadedCount} of ${totalAssets}`);
+            if (loadedCount === totalAssets) {
+                console.log('All assets preloaded');
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+
+        assets.forEach(asset => {
+            let element;
+            if (asset.endsWith('.mp4')) {
+                element = document.createElement('video');
+                element.src = asset;
+                element.preload = 'auto';
+                element.onloadeddata = onAssetLoad;
+                element.onerror = onAssetLoad;
+            } else if (asset.endsWith('.png')) {
+                element = document.createElement('img');
+                element.src = asset;
+                element.onload = onAssetLoad;
+                element.onerror = onAssetLoad;
+            }
+
+            element.style.position = 'absolute';
+            element.style.left = '-9999px';
+            document.body.appendChild(element);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', preloadAssets);
+</script>
+<script>
+    // 功能函数：打开指定的模态框
+    function openModal(modalElement) {
+        modalElement.style.display = "block";
+        backdrop.style.display = "block";
+        setTimeout(function() {
+            modalElement.style.transform = "translate(-50%, -50%) scale(1)";
+            modalElement.style.opacity = "1";
+            backdrop.style.opacity = "1";
+        }, 10);
+    }
+
+    // 功能函数：关闭指定的模态框
+    function closeModal(modalElement) {
+        modalElement.style.transform = "translate(-50%, -50%) scale(0.5)";
+        modalElement.style.opacity = "0";
+        backdrop.style.opacity = "0";
+        setTimeout(function() {
+            modalElement.style.display = "none";
+            backdrop.style.display = "none";
+        }, 500);
+    }
+
+    // 获取元素
+    var modals = [document.getElementById("modal"), document.getElementById("modal2"), document.getElementById("modal3")];
+    var closeButtons = [document.getElementById("closeModal"), document.getElementById("closeModal2"), document.getElementById("closeModal3")];
+    var openButton = document.getElementById("openModal");
+    var noteImage = document.getElementById("noteImage");
+    var no2Image = document.getElementById("no2Image");
+    var backdrop = document.getElementById("backdrop");
+    var backModal = document.getElementById('backModal');
+
+    // 打开模态框的事件监听
+    openButton.onclick = function() { openModal(modals[0]); };
+    noteImage.onclick = function() { openModal(modals[1]); };
+    no2Image.onclick = function() { openModal(modals[2]); };
+
+    // 关闭模态框的事件监听
+    closeButtons.forEach(function(button, index) {
+        button.onclick = function() { closeModal(modals[index]); };
+    });
+
+    // 点击背景遮罩关闭所有模态框
+    backdrop.onclick = function() {
+        modals.forEach(closeModal);
+    };
+
+    // 返回手语村
+    backModal.onclick = function() {
+        window.location.href = '../index.html';
+    };
+</script>
+</body>
+</html>

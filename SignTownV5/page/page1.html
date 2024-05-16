@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手语村</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .carousel {
+            display: flex;
+            flex-direction: row;
+            width: 500%;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .page {
+            width: 20%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .content {
+            position: relative;
+            width: 80%;
+            height: 100%;
+            display: flex;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+            border: none;
+        }
+
+        .button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%) scale(1);
+            border: none;
+            background: none;
+            cursor: pointer;
+            outline: none;
+            transition: transform 0.3s ease;
+        }
+        .button:hover {
+            transform: translateY(-50%) scale(1.4);
+        }
+
+        .button.left {
+            left: 0;
+        }
+
+        .button.right {
+            right: 0;
+        }
+
+        .video-1, .video-2 {
+            width: 72%;
+            margin: 0 120px;
+            border: black 3px solid;
+            border-radius: 36px;
+        }
+
+        .img-1, .img-2 {
+            width: 20%;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            margin: 10px;
+        }
+
+        .block {
+            display: flex;
+            height: 60px;
+            justify-content: space-between;
+            align-items: center;
+            width: 60%;
+            font-size: 1.5em;
+        }
+
+        .btn {
+            width: 180px;
+            height: 60px;
+            border-radius: 40px;
+            background-color: rgb(43, 80, 161);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: '思源黑体', sans-serif;
+            font-size: 26px;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: rgb(78, 110, 242);
+        }
+        .btn:disabled {
+            background-color: rgb(119, 126, 140);
+            cursor: not-allowed;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        .img {
+            position: absolute;
+            width: 20%;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="carousel">
+    <!-- 页面 1 -->
+    <div class="page">
+        <div class="content">
+            <h1>早上好，你想吃什么？</h1>
+        </div>
+        <div class="content">
+            <div class="column">
+                <div class="block">
+                    <h3 class="h-1">粥</h3>
+                    <img src="sign-1/icons/zhou.png" class="img-1" alt="">
+                </div>
+                <video src="sign-1/video/zhou_1.mp4" class="video-1" autoplay loop muted></video>
+            </div>
+            <div class="column">
+                <div class="block">
+                    <h3 class="h-2">包子</h3>
+                    <img src="sign-1/icons/bz.png" class="img-2" alt="">
+                </div>
+                <video src="sign-1/video/bz_1.mp4" class="video-2" autoplay loop muted></video>
+            </div>
+        </div>
+        <div class="content">
+            <button onclick="redirectToCam('page1-1')" class="btn">开始学习</button>
+        </div>
+        <img src="img.png" alt="" class="img" id="page1-1" style="display: none;">
+    </div>
+
+    <!-- 页面 2 -->
+    <div class="page">
+        <div class="content">
+            <h1>饿了呀，我们去吃什么?</h1>
+        </div>
+        <div class="content">
+            <div class="column">
+                <div class="block">
+                    <h3 class="h-1">麻婆豆腐</h3>
+                    <img src="sign-1/icons/mfdf.png" class="img-1" alt="">
+                </div>
+                <video src="sign-1/video/mfdf_1.mp4" class="video-1" autoplay loop muted></video>
+            </div>
+            <div class="column">
+                <div class="block">
+                    <h3 class="h-2">刀削面</h3>
+                    <img src="sign-1/icons/dxm.png" class="img-2" alt="">
+                </div>
+                <video src="sign-1/video/dxm_1.mp4" class="video-2" autoplay loop muted></video>
+            </div>
+        </div>
+        <div class="content">
+            <button onclick="redirectToCam('page1-2')" class="btn">开始学习</button>
+        </div>
+        <img src="img.png" alt="" class="img" id="page1-2" style="display: none;">
+    </div>
+
+    <!-- 页面 3 -->
+    <div class="page">
+        <div class="content">
+            <h1>今天心情真不错！点什么尽情吃！</h1>
+        </div>
+        <div class="content">
+            <div class="column">
+                <div class="block">
+                    <h3 class="h-1">自助餐</h3>
+                    <img src="sign-1/icons/zzc.png" class="img-1" alt="">
+                </div>
+                <video src="sign-1/video/zzc_1.mp4" class="video-1" autoplay loop muted></video>
+            </div>
+            <div class="column">
+                <div class="block">
+                    <h3 class="h-2">火锅</h3>
+                    <img src="sign-1/icons/hg.png" class="img-2" alt="">
+                </div>
+                <video src="sign-1/video/hg_1.mp4" class="video-2" autoplay loop muted></video>
+            </div>
+        </div>
+        <div class="content">
+            <button onclick="redirectToCam('page1-3')" class="btn">开始学习</button>
+        </div>
+        <img src="img.png" alt="" class="img" id="page1-3" style="display: none;">
+    </div>
+
+    <!-- 页面 4 -->
+    <div class="page">
+        <div class="content">
+            <h1>夜宵啦！有点饿要不要点肉夹馍还是馄饨？</h1>
+        </div>
+        <div class="content">
+            <div class="column">
+                <div class="block">
+                    <h3 class="h-1">肉夹馍</h3>
+                    <img src="sign-1/icons/rjm.png" class="img-1" alt="">
+                </div>
+                <video src="sign-1/video/rjm_1.mp4" class="video-1" autoplay loop muted></video>
+            </div>
+            <div class="column">
+                <div class="block">
+                    <h3 class="h-2">馄饨</h3>
+                    <img src="sign-1/icons/hd.png" class="img-2" alt="">
+                </div>
+                <video src="sign-1/video/hd_1.mp4" class="video-2" autoplay loop muted></video>
+            </div>
+        </div>
+        <div class="content">
+            <button onclick="redirectToCam('page1-4')" class="btn">开始学习</button>
+        </div>
+        <img src="img.png" alt="" class="img" id="page1-4" style="display: none;">
+    </div>
+
+    <!-- 页面 5 -->
+    <div class="page">
+        <div class="content">
+            <h1>天好热，吃个凉快些的东西吧！</h1>
+        </div>
+        <div class="content">
+            <div class="column">
+                <div class="block">
+                    <h3 class="h-1">冰激淋</h3>
+                    <img src="sign-1/icons/bjl.png" class="img-1" alt="">
+                </div>
+                <video src="sign-1/video/bjl_1.mp4" class="video-1" autoplay loop muted></video>
+            </div>
+            <div class="column">
+                <div class="block">
+                    <h3 class="h-2">西瓜</h3>
+                    <img src="sign-1/icons/xg.png" class="img-2" alt="">
+                </div>
+                <video src="sign-1/video/xg_1.mp4" class="video-2" autoplay loop muted></video>
+            </div>
+        </div>
+        <div class="content">
+            <button onclick="redirectToCam('page1-5')" class="btn">开始学习</button>
+        </div>
+        <img src="img.png" alt="" class="img" id="page1-5" style="display: none;">
+    </div>
+</div>
+
+<!-- 切换按钮 -->
+<button class="button left" onclick="moveToPage(currentIndex - 1)">
+    <svg t="1715310844617" class="icon" style="width: 50%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1628" width="200" height="200"><path d="M652.501333 149.034667l60.330667 60.330666-301.696 301.696 301.696 301.696-60.330667 60.352L320.64 541.226667l30.165333-30.186667-30.165333 30.186667-30.186667-30.186667 362.026667-362.026667z" p-id="1629"></path></svg>
+</button>
+<button class="button right" onclick="moveToPage(currentIndex + 1)">
+    <svg t="1715310820315" class="icon" style="width: 50%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1471" width="200" height="200"><path d="M371.498667 873.109333l-60.330667-60.330666 301.696-301.717334L311.168 209.365333l60.330667-60.330666L703.36 480.896l-30.165333 30.165333 30.165333-30.165333 30.186667 30.165333-362.026667 362.026667z" p-id="1472"></path></svg>
+</button>
+
+<script>
+    let currentIndex = 0;
+    const totalPages = document.querySelectorAll('.page').length;
+
+    function moveToPage(index) {
+        const carousel = document.querySelector('.carousel');
+        if (index >= 0 && index < totalPages) {
+            const offset = -index * (100 / totalPages);
+            carousel.style.transform = `translateX(${offset}%)`;
+            currentIndex = index;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var ids = ['page1-1', 'page1-2', 'page1-3', 'page1-4', 'page1-5'];
+
+        ids.forEach(function(id) {
+            var punchSuccess = sessionStorage.getItem(id);
+
+            if (punchSuccess === 'success') {
+                document.getElementById(id).style.display = 'block'; // 显示图片
+            } else {
+                document.getElementById(id).style.display = 'none'; // 隐藏图片
+            }
+        });
+    });
+
+    // 参数映射，根据不同页面设置不同的 param1 和 param2
+    const pageParams = {
+        'page1-1': { param1: '粥', param2: '包子' },
+        'page1-2': { param1: '麻婆豆腐', param2: '刀削面' },
+        'page1-3': { param1: '自助餐', param2: '火锅' },
+        'page1-4': { param1: '肉夹馍', param2: '馄饨' },
+        'page1-5': { param1: '冰激淋', param2: '西瓜' }
+    };
+
+    function redirectToCam(sourceId) {
+        // 根据 sourceId 获取对应的参数
+        const params = pageParams[sourceId];
+        if (params) {
+            // 将参数存储到 sessionStorage
+            sessionStorage.setItem('param1', params.param1);
+            sessionStorage.setItem('param2', params.param2);
+            sessionStorage.setItem('sourceId', sourceId);
+            // 获取当前页面的 URL 并存储
+            sessionStorage.setItem('url', window.location.href);
+            // 跳转到录制视频的页面
+            window.location.href = '../cam.html'; // 请根据实际情况修改路径
+        } else {
+            console.error('No params found for this sourceId:', sourceId);
+        }
+    }
+
+</script>
+</body>
+</html>

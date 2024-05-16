@@ -1,0 +1,93 @@
+/**
+ * 样式表：Index 页面样式
+ * 创建日期：2024-04-27
+ * 作者：Frank Wang
+ */
+
+/* 容器样式 */
+#app {
+    background-size: cover; /* 背景图覆盖整个容器 */
+    background-position: center; /* 背景图居中显示 */
+    transition: opacity 0.5s ease-in-out; /* 淡入淡出过渡效果 */
+    opacity: 1; /* 初始透明度设置为完全不透明 */
+}
+
+/* 动画效果 */
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100%); /* 从左侧100%位置开始移动 */
+        opacity: 0; /* 初始完全透明 */
+    }
+    to {
+        transform: translateX(0); /* 移动到原位置 */
+        opacity: 1; /* 最终完全不透明 */
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%); /* 从右侧100%位置开始移动 */
+        opacity: 0; /* 初始完全透明 */
+    }
+    to {
+        transform: translateX(0); /* 移动到原位置 */
+        opacity: 1; /* 最终完全不透明 */
+    }
+}
+
+/* 图片样式 */
+.pic1 {
+    position: absolute;
+    width: 22vh; /* 高度 */
+    height: 9vh; /* 宽度 */
+    left: 20vw; /* 距离左侧20%的位置 */
+    top: 64vh; /* 距离顶部64%的位置 */
+    animation: slideInFromLeft 2s ease-out forwards; /* 应用从左侧滑入动画 */
+}
+
+.pic2 {
+    position: absolute;
+    width: 50vh; /* 高度 */
+    height: 16vh; /* 宽度 */
+    left: 40vw; /* 距离左侧40%的位置 */
+    top: 18vh; /* 距离顶部18%的位置 */
+    animation: slideInFromRight 2s ease-out forwards; /* 应用从右侧滑入动画 */
+    transition: opacity 0.5s ease-in-out; /* 图片循环效果 */
+}
+
+.title {
+    position: absolute;
+    width: 59vh; /* 高度 */
+    height: 17vh; /* 宽度 */
+    left: 50vw; /* 距离左侧50%的位置 */
+    top: 50vh; /* 距离顶部50%的位置 */
+    transform: translate(-50%, -50%); /* 水平垂直居中 */
+}
+
+/* 容器内部元素透明度过渡 */
+#container {
+    transition: opacity 0.5s ease-in-out; /* 淡入淡出过渡效果 */
+    opacity: 1; /* 初始透明度为1 */
+}
+
+/* 元素过渡效果 */
+.pic1, .pic2, button {
+    transition: opacity 0.5s ease-in-out; /* 图片和按钮透明度过渡效果 */
+}
+
+/* 按钮样式 */
+.btn1 {
+    top: 80vh; /* 距顶部80%位置 */
+    left: 30vw; /* 距左侧30%位置 */
+}
+
+.btn2 {
+    top: 80vh; /* 距顶部80%位置 */
+    right: 30vw; /* 距右侧30%位置 */
+}
+
+.btn3 {
+    top: 80vh; /* 距顶部80%位置 */
+    left: 50vw; /* 水平中点位置 */
+    transform: translate(-50%); /* 水平居中 */
+}
