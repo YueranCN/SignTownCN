@@ -22,11 +22,26 @@
         }
         .about {
             position: absolute;
-            bottom: 5%;
-            right: 5%;
-            font-size: 1.5em;
-            color: black;
+            bottom: 2%;
+            right: 2%;
+            transform: translate(-50%, -50%);
+            color: #6c757d;
             text-decoration: none;
+            width: 24vh;
+            height: 8vh;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: '思源黑体', sans-serif;
+            font-size: 20px;
+            border: transparent 3px solid;
+        }
+        .about:hover {
+            color: rgb(43, 80, 161);
+            border: rgb(43, 80, 161) 3px solid;
         }
     </style>
 </head>
@@ -55,8 +70,13 @@
         &nbsp开始
     </button>
 </div>
-<!--<a href="about.html" class="about">关于我们</a>-->
+<a href="about.html" class="about">关于我们</a>
 <!-- 背景图部分 -->
 <script src="dist/js/index.js"></script>
+<script>
+    document.querySelector('.btn.old-btn.btn2').addEventListener('click', function() {
+        alert('当前功能正在上线中');
+    });
+</script>
 </body>
 </html>

@@ -51,16 +51,17 @@
             text-decoration: none;
         }
         .img-1 { width: 58%; top: 50%; left: 50%; animation: fadeIn 7s ease-out forwards; }
-        .img-2 { width: 25%; top: 30%; left: 31%; animation: slideInFromTop 4s ease-out forwards, bounce 2s ease-in-out infinite; }
+        .img-2 { width: 25%; top: 30%; left: 31%; animation: slideInFromTop 4s ease-out forwards; }
         .img-3 { width: 18%; top: 20%; left: 37%; animation: slideInFromLeft 4s ease-out forwards; }
-        .img-4 { width: 18%; top: 68%; left: 25%; animation: slideInFromLeft 4s ease-out forwards; }
+        .img-4 { width: 18%; top: 68%; left: 25%; animation: slideInFromLeft 4s ease-out forwards, bounce 2s ease-in-out infinite; }
         .img-5 { width: 18%; top: 24%; left: 67%; animation: slideInFromRight 4s ease-out forwards; }
-        .img-6 { width: 14%; top: 46%; left: 82%; animation: slideInFromRight 4s ease-out forwards; }
+        .img-6 { width: 14%; top: 46%; left: 82%; animation: slideInFromRight 4s ease-out forwards, bounce 2s ease-in-out infinite; }
         .img-7 { width: 25%; top: 80%; left: 50%; animation: slideInFromLeft 4s ease-out forwards; }
+        .img-8 { width: 20%; top: 60%; left: 80%; animation: slideInFromRight 4s ease-out forwards; }
 
-        .map-1 { width: 2%; top: 56%; left: 45%; animation: fadeInAndPulse 12s ease-out infinite; }
-        .map-2 { width: 2%; top: 42%; left: 60%; animation: fadeInAndPulse 12s ease-out infinite; }
-        .map-3 { width: 2%; top: 64%; left: 58%; animation: fadeInAndPulse 12s ease-out infinite; }
+        .map-1 { width: 2%; top: 56%; left: 45%; animation: fadeInAndPulse 6s ease-out infinite; }
+        .map-2 { width: 2%; top: 42%; left: 60%; animation: fadeInAndPulse 6s ease-out infinite; }
+        .map-3 { width: 2%; top: 64%; left: 58%; animation: fadeInAndPulse 6s ease-out infinite; }
 
         /* 动画关键帧 */
         @keyframes slideInFromLeft {
@@ -80,7 +81,7 @@
             to { opacity: 1; }
         }
         @keyframes fadeInAndPulse {
-            0%, 16.7% { opacity: 0; transform: scale(1); }
+            0%, 16.7% { transform: scale(1); }
             25%, 50%, 75%, 100% { transform: scale(1); }
             37.5%, 62.5%, 87.5% { transform: scale(1.5); }
         }
@@ -102,6 +103,7 @@
 <img src="images/index/yun3.png" class="img-5" alt="yun3">
 <img src="images/index/yun4.png" class="img-6" alt="yun4">
 <img src="images/index/yun5.png" class="img-7" alt="yun5">
+<img src="images/index/yun5.png" class="img-8" alt="yun5">
 
 <a href="play/play1.html"><img src="images/index/map1.png" class="map-1" alt="map1"></a>
 <a href="play/play2.html"><img src="images/index/map2.png" class="map-2" alt="map2"></a>

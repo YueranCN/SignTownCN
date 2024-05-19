@@ -38,6 +38,8 @@ function changeBackground() {
         }
 
         // 素材图更换
+        var img = document.getElementById('animatedImage');
+        img.style.left = '60vw';
 
         // 淡入新背景
         setTimeout(() => {

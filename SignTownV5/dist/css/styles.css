@@ -32,7 +32,7 @@ html, body {
     justify-content: center; /* 子元素水平居中 */
     align-items: center; /* 子元素垂直居中 */
     font-family: '思源黑体', sans-serif; /* 设置字体为思源黑体，若无则使用系统默认的无衬线字体 */
-    font-size: 26px; /* 字体大小 */
+    font-size: 20px; /* 字体大小 */
 }
 .btn:hover {
     background-color: rgb(78, 110, 242); /* 鼠标悬停时背景颜色 */
